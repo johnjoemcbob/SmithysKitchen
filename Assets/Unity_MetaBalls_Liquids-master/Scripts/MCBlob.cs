@@ -98,10 +98,29 @@ public class MCBlob : MonoBehaviour
 
     [SerializeField] private SphereCollider[] BlobObjectsLocations;
 
+	public int NumberOfSpheres = 5;
+	public float Scale = 1;
+	public float HorizontalOff = 1;
+	public GameObject PrefabSphere;
+
     //Unity and Sample Specific
     void Start()
     {
-        if (BlobObjectsLocations.Length == 0)
+		foreach ( Transform child in transform )
+		{
+			DestroyImmediate( child.gameObject );
+		}
+		BlobObjectsLocations = new SphereCollider[NumberOfSpheres];
+		for ( int s = 0; s < NumberOfSpheres; s++ )
+		{
+			GameObject sphere = Instantiate( PrefabSphere, transform );
+			sphere.transform.localPosition = new Vector3( Random.Range( -HorizontalOff, HorizontalOff ), s * Scale * 2, Random.Range( -HorizontalOff, HorizontalOff ) );
+			sphere.transform.localScale = Vector3.one * Scale;
+			BlobObjectsLocations[s] = sphere.GetComponent<SphereCollider>();
+		}
+
+
+		if (BlobObjectsLocations.Length == 0)
         {
             BlobObjectsLocations = GetComponentsInChildren<SphereCollider>();
         }
