@@ -17,6 +17,9 @@ public class FryableCubeScript : FryableScript
     float maxFrySize = 0.025f;
     float minFrySize = 0.01f;
 
+
+    List<ParticleCollisionEvent> collisionEvents;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -28,6 +31,8 @@ public class FryableCubeScript : FryableScript
         south = cubeMesh.transform.Find("Side_South").gameObject;
         east = cubeMesh.transform.Find("Side_East").gameObject;
         west = cubeMesh.transform.Find("Side_West").gameObject;
+
+        collisionEvents = new List<ParticleCollisionEvent>();
     }
 
     // Update is called once per frame
@@ -134,5 +139,37 @@ public class FryableCubeScript : FryableScript
             return east;
 
         return null;
+    }
+
+    void OnParticleCollision(GameObject other)
+    {
+        ParticleSystem ps = other.GetComponent<ParticleSystem>();
+
+        if (ps)
+        {
+            int numCollisionEvents = ps.GetCollisionEvents(this.gameObject, collisionEvents);
+            Color particleColour = ps.main.startColor.color;
+
+            foreach(ParticleCollisionEvent colEvent in collisionEvents)
+            {
+                if ((colEvent.colliderComponent != null) && (colEvent.colliderComponent.gameObject != null))
+                {
+                    if (colEvent.colliderComponent.gameObject.GetComponentInParent<FryableCubeScript>())
+                    {
+                        GameObject cubeSide = colEvent.colliderComponent.gameObject;
+                        MeshRenderer cubeRenderer = cubeSide.GetComponent<MeshRenderer>();
+
+
+                        float colourSpeed = 0.001f;
+                        if (IsFrying())
+                        {
+                            colourSpeed = 0.05f;
+                        }
+
+                        cubeRenderer.material.color = Color.Lerp(cubeRenderer.material.color, particleColour, colourSpeed);
+                    }
+                }
+            }
+        }
     }
 }
