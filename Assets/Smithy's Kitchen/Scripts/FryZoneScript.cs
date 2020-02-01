@@ -7,6 +7,8 @@ public class FryZoneScript : MonoBehaviour
     List<FryableScript> fryableObjects;
     AudioSource audioSource;
 
+    bool isHeated = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,12 +19,52 @@ public class FryZoneScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (fryableObjects.Count > 0)
+        //Fry if heated
+        if (isHeated)
         {
-            foreach (FryableScript fry in fryableObjects)
+            if (fryableObjects.Count > 0)
             {
-                fry.Fry();
+                foreach (FryableScript fry in fryableObjects)
+                {
+                    fry.Fry();
+                }
             }
+        }
+    }
+
+    public void SetHeated(bool val)
+    {
+        if (isHeated == val)
+            return;
+
+        isHeated = val;
+
+        if (isHeated)
+        {
+            if (fryableObjects.Count > 0)
+            {
+                foreach (FryableScript fry in fryableObjects)
+                {
+                    fry.StartFry();
+                }
+            
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+            }
+        }
+        else
+        {
+            if (fryableObjects.Count > 0)
+            {
+                foreach (FryableScript fry in fryableObjects)
+                {
+                    fry.StopFry();
+                }
+            }
+
+            audioSource.Stop();
         }
     }
 
@@ -35,11 +77,16 @@ public class FryZoneScript : MonoBehaviour
             if (!fryableObjects.Contains(fryable))
             {
                 fryableObjects.Add(fryable);
-                fryable.StartFry();
 
-                if (!audioSource.isPlaying)
+                //Only fry if heated
+                if (isHeated)
                 {
-                    audioSource.Play();
+                    fryable.StartFry();
+
+                    if (!audioSource.isPlaying)
+                    {
+                        audioSource.Play();
+                    }
                 }
             }
         }

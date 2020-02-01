@@ -59,21 +59,21 @@ public class FryableCubeScript : FryableScript
 
         if (upDir == upVector.x)
         {
-            scaleDir.x = 0.5f * minFrySize;
+            scaleDir.x = 0.25f * minFrySize;
             scaleDir.y = 1.0f * maxFrySize;
             scaleDir.z = 1.0f * maxFrySize;
         }
         else if (upDir == upVector.y)
         {
             scaleDir.x = 1.0f * maxFrySize;
-            scaleDir.y = 0.5f * minFrySize;
+            scaleDir.y = 0.25f * minFrySize;
             scaleDir.z = 1.0f * maxFrySize;
         }
         else if (upDir == upVector.z)
         {
             scaleDir.x = 1.0f * maxFrySize;
             scaleDir.y = 1.0f * maxFrySize;
-            scaleDir.z = 0.5f * minFrySize;
+            scaleDir.z = 0.25f * minFrySize;
         }
 
         //Debug.Log(transform.up + "   " + scaleDir.ToString("F4"));
