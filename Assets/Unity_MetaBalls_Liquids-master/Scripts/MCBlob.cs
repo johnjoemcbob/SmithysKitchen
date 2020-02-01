@@ -37,7 +37,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class MCBlob : MonoBehaviour
 {
     /*Amount of cubes in X/Y/Z directions, Dimension will always be from -.5f to .5f in XYZ

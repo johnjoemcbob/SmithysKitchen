@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class ChoppableVeg : MonoBehaviour
 {
+	[Header( "Parameters" )]
+	public float SpeedRequired = 3;
+
+	[Header( "References" )]
 	public Transform[] Segments;
 
 	// temp, do in order for now - no matter where chopped
 	int nextchop = 0;
+
+	float chopdelay = 0;
 
 	public void OnCollisionEnter( Collision collision )
 	{
@@ -16,7 +22,7 @@ public class ChoppableVeg : MonoBehaviour
 
 		foreach ( var contact in contacts )
 		{
-			if ( contact.otherCollider.tag == "Knife" )
+			if ( contact.otherCollider.tag == "Knife" && CanChop( contact.otherCollider ) )
 			{
 				ChopOff( contact.thisCollider.transform );
 				GetComponent<AudioSource>().Play();
@@ -41,10 +47,22 @@ public class ChoppableVeg : MonoBehaviour
 				}
 			}
 
-			ChopOff( closest );
-			GetComponent<AudioSource>().Play();
-			GetComponent<AudioSource>().pitch = Random.Range( 1.8f, 2.2f );
+			if ( CanChop( other ) )
+			{
+				ChopOff( closest );
+				GetComponent<AudioSource>().Play();
+				GetComponent<AudioSource>().pitch = Random.Range( 1.8f, 2.2f );
+			}
 		}
+	}
+
+	private bool CanChop( Collider knife )
+	{
+		if ( knife.attachedRigidbody.GetComponentInChildren<KinematicVelocity>().Velocity.magnitude >= SpeedRequired && chopdelay <= Time.time )
+		{
+			return true;
+		}
+		return false;
 	}
 
 	private void ChopOff( Transform segment )
@@ -52,7 +70,10 @@ public class ChoppableVeg : MonoBehaviour
 		//segment.SetParent( null );
 
 		Segments[nextchop].SetParent( null );
-		Segments[nextchop].gameObject.AddComponent<Rigidbody>();
+		//Segments[nextchop].gameObject.AddComponent<Rigidbody>();
+		SmithysKitchen.CreateGrabbable( Segments[nextchop].gameObject );
+
 		nextchop++;
+		chopdelay = Time.time + 0.02f;
 	}
 }

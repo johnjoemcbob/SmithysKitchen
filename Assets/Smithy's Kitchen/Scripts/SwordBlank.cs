@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class SwordBlank : MonoBehaviour
 {
+	[Header( "Parameters" )]
+	public float SpeedRequired = 5;
+
+	[Header( "References" )]
 	public Transform[] SegmentRotations;
+
+	float hitdelay = 0;
 
 	public void Start()
 	{
@@ -19,11 +25,12 @@ public class SwordBlank : MonoBehaviour
 
 		foreach ( var contact in contacts )
 		{
-			if ( contact.otherCollider.tag == "Hammer" )
+			if ( contact.otherCollider.tag == "Hammer" && CanStraighten( contact.otherCollider ) )
 			{
 				contact.thisCollider.transform.parent.localEulerAngles = Vector3.zero;
 				GetComponent<AudioSource>().Play();
 				GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.2f );
+				hitdelay = Time.time + 0.02f;
 			}
 		}
 
@@ -32,7 +39,7 @@ public class SwordBlank : MonoBehaviour
 
 	private void OnTriggerEnter( Collider other )
 	{
-		if ( other.tag == "Hammer" )
+		if ( other.tag == "Hammer" && CanStraighten( other ) )
 		{
 			Transform closest = SegmentRotations[0];
 			float maxdist = -1;
@@ -49,9 +56,19 @@ public class SwordBlank : MonoBehaviour
 			closest.parent.localEulerAngles = Vector3.zero;
 			GetComponent<AudioSource>().Play();
 			GetComponent<AudioSource>().pitch = Random.Range( 1.8f, 2.2f );
+			hitdelay = Time.time + 0.02f;
 		}
 
 		CheckStraight();
+	}
+
+	private bool CanStraighten( Collider hammer )
+	{
+		if ( hammer.attachedRigidbody.GetComponentInChildren<KinematicVelocity>().Velocity.magnitude >= SpeedRequired && hitdelay <= Time.time )
+		{
+			return true;
+		}
+		return false;
 	}
 
 	private void CheckStraight()
