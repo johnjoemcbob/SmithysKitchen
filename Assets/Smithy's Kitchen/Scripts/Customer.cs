@@ -45,8 +45,8 @@ public class Customer : MonoBehaviour
 		float horizontal = 0.4f;
 		float vertical = 0.2f;
 		float angle = 30;
-		float vertspeed = 10;
-		float speed = 10;
+		float vertspeed = 5;
+		float speed = 5;
 
 		Vector3 startpos = transform.localPosition;
 		Vector3 startrot = transform.localEulerAngles;
