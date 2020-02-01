@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 568de2572f4023741bac3f19798ce80e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PitchRange: {x: 1, y: 2}
+  PitchRange: {x: 2, y: 3}
 --- !u!135 &4539775479539772199
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -163,7 +163,7 @@ PrefabInstance:
     - target: {fileID: 1446795366740208163, guid: 3f5dc5860f9599c4e8a0ae09a8bbed3c,
         type: 3}
       propertyPath: m_Name
-      value: Test
+      value: Bouncy Ball
       objectReference: {fileID: 0}
     - target: {fileID: 4163578710741522273, guid: 3f5dc5860f9599c4e8a0ae09a8bbed3c,
         type: 3}

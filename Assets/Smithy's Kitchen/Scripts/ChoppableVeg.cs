@@ -65,6 +65,8 @@ public class ChoppableVeg : MonoBehaviour
 		return false;
 	}
 
+	int impress = 0;
+	int impressgoal = 5;
 	private void ChopOff( Transform segment )
 	{
 		//segment.SetParent( null );
@@ -72,6 +74,15 @@ public class ChoppableVeg : MonoBehaviour
 		Segments[nextchop].SetParent( null );
 		//Segments[nextchop].gameObject.AddComponent<Rigidbody>();
 		SmithysKitchen.CreateGrabbable( Segments[nextchop].gameObject );
+
+		// temp
+		impress++;
+		if ( impress >= impressgoal )
+		{
+			FindObjectOfType<Customer>().Impress();
+			impress = 0;
+			impressgoal = Random.Range( 5, 15 );
+		}
 
 		nextchop++;
 		chopdelay = Time.time + 0.02f;

@@ -114,7 +114,7 @@ public class MCBlob : MonoBehaviour
 		for ( int s = 0; s < NumberOfSpheres; s++ )
 		{
 			GameObject sphere = Instantiate( PrefabSphere, transform );
-			sphere.transform.localPosition = new Vector3( Random.Range( -HorizontalOff, HorizontalOff ), s * Scale * 2, Random.Range( -HorizontalOff, HorizontalOff ) );
+			sphere.transform.localPosition = new Vector3( Random.Range( -HorizontalOff, HorizontalOff ), s * Scale / 10, Random.Range( -HorizontalOff, HorizontalOff ) );
 			sphere.transform.localScale = Vector3.one * Scale;
 			BlobObjectsLocations[s] = sphere.GetComponent<SphereCollider>();
 		}

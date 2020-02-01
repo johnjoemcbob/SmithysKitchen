@@ -55,7 +55,7 @@ public class SwordBlank : MonoBehaviour
 
 			closest.parent.localEulerAngles = Vector3.zero;
 			GetComponent<AudioSource>().Play();
-			GetComponent<AudioSource>().pitch = Random.Range( 1.8f, 2.2f );
+			GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.2f );
 			hitdelay = Time.time + 0.02f;
 		}
 

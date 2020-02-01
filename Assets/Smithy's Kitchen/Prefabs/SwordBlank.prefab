@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f40f650e3aeeb54cbe9fcf5b4a40b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpeedRequired: 3
+  SpeedRequired: 0.9
   SegmentRotations: []
 --- !u!82 &6654424252432909893
 AudioSource:

@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f102577ce5cea2446b54c33b4c7e0a4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpeedRequired: 2
+  SpeedRequired: 0.7
   Segments:
   - {fileID: 8197647163614078604}
   - {fileID: 8856736883891023049}
