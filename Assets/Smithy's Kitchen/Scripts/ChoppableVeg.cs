@@ -9,6 +9,7 @@ public class ChoppableVeg : MonoBehaviour
 
 	[Header( "References" )]
 	public Transform[] Segments;
+	public Transform Head;
 
 	// temp, do in order for now - no matter where chopped
 	int nextchop = 0;
@@ -70,6 +71,11 @@ public class ChoppableVeg : MonoBehaviour
 	private void ChopOff( Transform segment )
 	{
 		//segment.SetParent( null );
+		if ( nextchop >= Segments.Length - 1 )
+		{
+			Head.GetComponentInParent<Rigidbody>().isKinematic = false;
+		}
+		if ( nextchop >= Segments.Length ) return;
 
 		Segments[nextchop].SetParent( null );
 		//Segments[nextchop].gameObject.AddComponent<Rigidbody>();

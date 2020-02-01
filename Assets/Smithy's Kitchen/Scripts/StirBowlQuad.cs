@@ -8,7 +8,7 @@ public class StirBowlQuad : MonoBehaviour
 	{
 		if ( other.tag == "Whisk" )
 		{
-			GetComponentInParent<StirBowl>().QuadEntered( transform.GetSiblingIndex() );
+			GetComponentInParent<StirBowl>().QuadEntered( other, transform.GetSiblingIndex() );
 		}
 	}
 
@@ -16,7 +16,19 @@ public class StirBowlQuad : MonoBehaviour
 	{
 		if ( other.tag == "Whisk" )
 		{
-			GetComponentInParent<StirBowl>().QuadEntered( transform.GetSiblingIndex() );
+			GetComponentInParent<StirBowl>().QuadEntered( other, transform.GetSiblingIndex() );
+		}
+		if ( other.tag == "Ingredient" )
+		{
+			GetComponentInParent<StirBowl>().TrackIngredient( other, true );
+		}
+	}
+
+	private void OnTriggerExit( Collider other )
+	{
+		if ( other.tag == "Ingredient" )
+		{
+			GetComponentInParent<StirBowl>().TrackIngredient( other, false );
 		}
 	}
 }

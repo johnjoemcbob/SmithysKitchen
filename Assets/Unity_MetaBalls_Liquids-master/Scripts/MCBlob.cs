@@ -33,6 +33,7 @@
 */
 
 /*Unity Specific*/
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
@@ -96,7 +97,8 @@ public class MCBlob : MonoBehaviour
     /*Current frame counter*/
     private int pctr = 0;
 
-    [SerializeField] private SphereCollider[] BlobObjectsLocations;
+	private List<SphereCollider> Blobs = new List<SphereCollider>();
+	[SerializeField] public SphereCollider[] BlobObjectsLocations;
 
 	public int NumberOfSpheres = 5;
 	public float Scale = 1;
@@ -119,13 +121,23 @@ public class MCBlob : MonoBehaviour
 			BlobObjectsLocations[s] = sphere.GetComponent<SphereCollider>();
 		}
 
-
 		if (BlobObjectsLocations.Length == 0)
         {
             BlobObjectsLocations = GetComponentsInChildren<SphereCollider>();
         }
         UpdateBlobs();
     }
+	
+	public void Add()
+	{
+		GameObject sphere = Instantiate( PrefabSphere, transform );
+		sphere.transform.localPosition = new Vector3( Random.Range( -HorizontalOff, HorizontalOff ), Scale, Random.Range( -HorizontalOff, HorizontalOff ) );
+		sphere.transform.localScale = Vector3.one * Scale;
+		Blobs.Add( sphere.GetComponent<SphereCollider>() );
+
+		BlobObjectsLocations = Blobs.ToArray();
+		UpdateBlobs();
+	}
 
     void UpdateBlobs()
     {
@@ -428,7 +440,7 @@ public class MCBlob : MonoBehaviour
         }
     }
 
-    /*Recurse all the neighboring cubes where thy contain part of the surface*/
+    /*Recurse all the neighboring cubes where they contain part of the surface*/
     /*Counter to see how many cubes where processed*/
     int cubec;
     private void recurseCube(mcCube cube)

@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - FryingPan
+  - Knife
+  - Ground
+  - Whisk
+  - Hammer
+  - Ingredient
   layers:
   - Default
   - TransparentFX
