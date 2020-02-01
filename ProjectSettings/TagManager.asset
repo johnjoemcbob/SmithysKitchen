@@ -4,14 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Hammer
-  - Ground
-  - Knife
-<<<<<<< HEAD
-  - Whisk
-=======
   - FryingPan
->>>>>>> ceea6a4cb49ba871f085d961616645eb9702b8d6
   layers:
   - Default
   - TransparentFX
@@ -21,8 +14,8 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
-  - PointerGrabbableObject
+  - 
+  - 
   - 
   - 
   - 
