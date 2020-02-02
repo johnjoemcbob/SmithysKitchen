@@ -141,6 +141,31 @@ public class FryableCubeScript : FryableScript
         return null;
     }
 
+    public Color GetAverageColour()
+    {
+        Color mixedColor = Color.white;
+
+        MeshRenderer topRenderer = top.GetComponent<MeshRenderer>();
+        mixedColor = mixedColor * topRenderer.material.color;
+
+        MeshRenderer bottomRenderer = bottom.GetComponent<MeshRenderer>();
+        mixedColor = mixedColor * bottomRenderer.material.color;
+
+        MeshRenderer northRenderer = north.GetComponent<MeshRenderer>();
+        mixedColor = mixedColor * northRenderer.material.color;
+
+        MeshRenderer southRenderer = south.GetComponent<MeshRenderer>();
+        mixedColor = mixedColor * southRenderer.material.color;
+
+        MeshRenderer eastRenderer = east.GetComponent<MeshRenderer>();
+        mixedColor = mixedColor * eastRenderer.material.color;
+
+        MeshRenderer westRenderer = west.GetComponent<MeshRenderer>();
+        mixedColor = mixedColor * westRenderer.material.color;
+
+        return mixedColor;
+    }
+
     void OnParticleCollision(GameObject other)
     {
         ParticleSystem ps = other.GetComponent<ParticleSystem>();
