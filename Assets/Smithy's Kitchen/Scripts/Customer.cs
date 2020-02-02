@@ -25,13 +25,13 @@ public class Customer : MonoBehaviour
 		// TODO Lerp?
     }
 
-	public void Impress()
+	public void Impress( float duration = 1.5f )
 	{
 		// Toggle on the popup
 		Popup.SetActive( true );
 
 		// Start moving
-		StartCoroutine( Animate() );
+		StartCoroutine( Animate( duration ) );
 
 		// Make sound
 		GetComponent<AudioSource>().clip = ImpressClips[Random.Range( 0, ImpressClips.Length )];
@@ -39,9 +39,8 @@ public class Customer : MonoBehaviour
 		GetComponent<AudioSource>().Play();
 	}
 
-	public IEnumerator Animate()
+	public IEnumerator Animate( float duration = 1.5f )
 	{
-		float duration = 1.5f;
 		float horizontal = 0.4f;
 		float vertical = 0.2f;
 		float angle = 30;
