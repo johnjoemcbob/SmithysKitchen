@@ -163,7 +163,7 @@ public class FryableCubeScript : FryableScript
                         float colourSpeed = 0.001f;
                         if (IsFrying())
                         {
-                            colourSpeed = 0.05f;
+                            colourSpeed = 0.01f;
                         }
 
                         cubeRenderer.material.color = Color.Lerp(cubeRenderer.material.color, particleColour, colourSpeed);

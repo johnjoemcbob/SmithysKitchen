@@ -41,6 +41,330 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &6902496237404024209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993247098640713207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a5cea3d73a4234aa48131d662d170b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoRejectStates: -1
+  componentTypes: {fileID: 6902496237404024214}
+--- !u!114 &6902496237404024214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993247098640713207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d01a890104495a49a7a72c5733174ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Found:
+    m_PersistentCalls:
+      m_Calls: []
+  NotFound:
+    m_PersistentCalls:
+      m_Calls: []
+  IsEmpty:
+    m_PersistentCalls:
+      m_Calls: []
+  IsPopulated:
+    m_PersistentCalls:
+      m_Calls: []
+  Populated:
+    m_PersistentCalls:
+      m_Calls: []
+  Added:
+    m_PersistentCalls:
+      m_Calls: []
+  Removed:
+    m_PersistentCalls:
+      m_Calls: []
+  Emptied:
+    m_PersistentCalls:
+      m_Calls: []
+  currentIndex: 0
+  elements:
+  - assemblyQualifiedTypeName: InteractableSpiceShakerTag, VRTK.Samples.Farm.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &6902496237614581800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993247098849321053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d01a890104495a49a7a72c5733174ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Found:
+    m_PersistentCalls:
+      m_Calls: []
+  NotFound:
+    m_PersistentCalls:
+      m_Calls: []
+  IsEmpty:
+    m_PersistentCalls:
+      m_Calls: []
+  IsPopulated:
+    m_PersistentCalls:
+      m_Calls: []
+  Populated:
+    m_PersistentCalls:
+      m_Calls: []
+  Added:
+    m_PersistentCalls:
+      m_Calls: []
+  Removed:
+    m_PersistentCalls:
+      m_Calls: []
+  Emptied:
+    m_PersistentCalls:
+      m_Calls: []
+  currentIndex: 0
+  elements:
+  - assemblyQualifiedTypeName: InteractableSpiceShakerTag, VRTK.Samples.Farm.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &6902496237614581803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993247098849321053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a5cea3d73a4234aa48131d662d170b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoRejectStates: -1
+  componentTypes: {fileID: 6902496237614581800}
+--- !u!114 &6902496236634237892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993247099762557882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a5cea3d73a4234aa48131d662d170b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoRejectStates: -1
+  componentTypes: {fileID: 6902496236634237893}
+--- !u!114 &6902496236634237893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993247099762557882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d01a890104495a49a7a72c5733174ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Found:
+    m_PersistentCalls:
+      m_Calls: []
+  NotFound:
+    m_PersistentCalls:
+      m_Calls: []
+  IsEmpty:
+    m_PersistentCalls:
+      m_Calls: []
+  IsPopulated:
+    m_PersistentCalls:
+      m_Calls: []
+  Populated:
+    m_PersistentCalls:
+      m_Calls: []
+  Added:
+    m_PersistentCalls:
+      m_Calls: []
+  Removed:
+    m_PersistentCalls:
+      m_Calls: []
+  Emptied:
+    m_PersistentCalls:
+      m_Calls: []
+  currentIndex: 0
+  elements:
+  - assemblyQualifiedTypeName: InteractableSpiceShakerTag, VRTK.Samples.Farm.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &6902496236654645120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993247099774592902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a5cea3d73a4234aa48131d662d170b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoRejectStates: -1
+  componentTypes: {fileID: 6902496236654645121}
+--- !u!114 &6902496236654645121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993247099774592902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d01a890104495a49a7a72c5733174ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Found:
+    m_PersistentCalls:
+      m_Calls: []
+  NotFound:
+    m_PersistentCalls:
+      m_Calls: []
+  IsEmpty:
+    m_PersistentCalls:
+      m_Calls: []
+  IsPopulated:
+    m_PersistentCalls:
+      m_Calls: []
+  Populated:
+    m_PersistentCalls:
+      m_Calls: []
+  Added:
+    m_PersistentCalls:
+      m_Calls: []
+  Removed:
+    m_PersistentCalls:
+      m_Calls: []
+  Emptied:
+    m_PersistentCalls:
+      m_Calls: []
+  currentIndex: 0
+  elements:
+  - assemblyQualifiedTypeName: InteractableSpiceShakerTag, VRTK.Samples.Farm.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &6902496236825503076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993247100207713561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d01a890104495a49a7a72c5733174ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Found:
+    m_PersistentCalls:
+      m_Calls: []
+  NotFound:
+    m_PersistentCalls:
+      m_Calls: []
+  IsEmpty:
+    m_PersistentCalls:
+      m_Calls: []
+  IsPopulated:
+    m_PersistentCalls:
+      m_Calls: []
+  Populated:
+    m_PersistentCalls:
+      m_Calls: []
+  Added:
+    m_PersistentCalls:
+      m_Calls: []
+  Removed:
+    m_PersistentCalls:
+      m_Calls: []
+  Emptied:
+    m_PersistentCalls:
+      m_Calls: []
+  currentIndex: 0
+  elements:
+  - assemblyQualifiedTypeName: InteractableSpiceShakerTag, VRTK.Samples.Farm.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &6902496236825503079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993247100207713561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a5cea3d73a4234aa48131d662d170b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoRejectStates: -1
+  componentTypes: {fileID: 6902496236825503076}
+--- !u!114 &6902496237129539386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993247100524214092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a5cea3d73a4234aa48131d662d170b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoRejectStates: -1
+  componentTypes: {fileID: 6902496237129539387}
+--- !u!114 &6902496237129539387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993247100524214092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d01a890104495a49a7a72c5733174ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Found:
+    m_PersistentCalls:
+      m_Calls: []
+  NotFound:
+    m_PersistentCalls:
+      m_Calls: []
+  IsEmpty:
+    m_PersistentCalls:
+      m_Calls: []
+  IsPopulated:
+    m_PersistentCalls:
+      m_Calls: []
+  Populated:
+    m_PersistentCalls:
+      m_Calls: []
+  Added:
+    m_PersistentCalls:
+      m_Calls: []
+  Removed:
+    m_PersistentCalls:
+      m_Calls: []
+  Emptied:
+    m_PersistentCalls:
+      m_Calls: []
+  currentIndex: 0
+  elements:
+  - assemblyQualifiedTypeName: InteractableSpiceShakerTag, VRTK.Samples.Farm.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &6902496236412659965
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,168 +694,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.28, y: 0.58, z: 0.039}
   m_Center: {x: 0.14, y: 0.29, z: 0.3}
---- !u!114 &6902496236634237892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5993247099762557882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9a5cea3d73a4234aa48131d662d170b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoRejectStates: -1
-  componentTypes: {fileID: 6902496236634237893}
---- !u!114 &6902496236634237893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5993247099762557882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d01a890104495a49a7a72c5733174ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Found:
-    m_PersistentCalls:
-      m_Calls: []
-  NotFound:
-    m_PersistentCalls:
-      m_Calls: []
-  IsEmpty:
-    m_PersistentCalls:
-      m_Calls: []
-  IsPopulated:
-    m_PersistentCalls:
-      m_Calls: []
-  Populated:
-    m_PersistentCalls:
-      m_Calls: []
-  Added:
-    m_PersistentCalls:
-      m_Calls: []
-  Removed:
-    m_PersistentCalls:
-      m_Calls: []
-  Emptied:
-    m_PersistentCalls:
-      m_Calls: []
-  currentIndex: 0
-  elements:
-  - assemblyQualifiedTypeName: InteractableSpiceShakerTag, VRTK.Samples.Farm.Runtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!114 &6902496236654645120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5993247099774592902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9a5cea3d73a4234aa48131d662d170b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoRejectStates: -1
-  componentTypes: {fileID: 6902496236654645121}
---- !u!114 &6902496236654645121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5993247099774592902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d01a890104495a49a7a72c5733174ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Found:
-    m_PersistentCalls:
-      m_Calls: []
-  NotFound:
-    m_PersistentCalls:
-      m_Calls: []
-  IsEmpty:
-    m_PersistentCalls:
-      m_Calls: []
-  IsPopulated:
-    m_PersistentCalls:
-      m_Calls: []
-  Populated:
-    m_PersistentCalls:
-      m_Calls: []
-  Added:
-    m_PersistentCalls:
-      m_Calls: []
-  Removed:
-    m_PersistentCalls:
-      m_Calls: []
-  Emptied:
-    m_PersistentCalls:
-      m_Calls: []
-  currentIndex: 0
-  elements:
-  - assemblyQualifiedTypeName: InteractableSpiceShakerTag, VRTK.Samples.Farm.Runtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!114 &6902496236825503079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5993247100207713561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9a5cea3d73a4234aa48131d662d170b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoRejectStates: -1
-  componentTypes: {fileID: 6902496236825503076}
---- !u!114 &6902496236825503076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5993247100207713561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d01a890104495a49a7a72c5733174ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Found:
-    m_PersistentCalls:
-      m_Calls: []
-  NotFound:
-    m_PersistentCalls:
-      m_Calls: []
-  IsEmpty:
-    m_PersistentCalls:
-      m_Calls: []
-  IsPopulated:
-    m_PersistentCalls:
-      m_Calls: []
-  Populated:
-    m_PersistentCalls:
-      m_Calls: []
-  Added:
-    m_PersistentCalls:
-      m_Calls: []
-  Removed:
-    m_PersistentCalls:
-      m_Calls: []
-  Emptied:
-    m_PersistentCalls:
-      m_Calls: []
-  currentIndex: 0
-  elements:
-  - assemblyQualifiedTypeName: InteractableSpiceShakerTag, VRTK.Samples.Farm.Runtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &6902496236835504736
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,60 +738,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.039, y: 0.58, z: 0.28}
   m_Center: {x: 0.3, y: 0.29, z: 0.14}
---- !u!114 &6902496237129539386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5993247100524214092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9a5cea3d73a4234aa48131d662d170b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoRejectStates: -1
-  componentTypes: {fileID: 6902496237129539387}
---- !u!114 &6902496237129539387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5993247100524214092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d01a890104495a49a7a72c5733174ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Found:
-    m_PersistentCalls:
-      m_Calls: []
-  NotFound:
-    m_PersistentCalls:
-      m_Calls: []
-  IsEmpty:
-    m_PersistentCalls:
-      m_Calls: []
-  IsPopulated:
-    m_PersistentCalls:
-      m_Calls: []
-  Populated:
-    m_PersistentCalls:
-      m_Calls: []
-  Added:
-    m_PersistentCalls:
-      m_Calls: []
-  Removed:
-    m_PersistentCalls:
-      m_Calls: []
-  Emptied:
-    m_PersistentCalls:
-      m_Calls: []
-  currentIndex: 0
-  elements:
-  - assemblyQualifiedTypeName: InteractableSpiceShakerTag, VRTK.Samples.Farm.Runtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &6902496237171418227
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,60 +877,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.09492, y: 0.196, z: 0.09492}
   m_Center: {x: 0, y: 0.098, z: 0}
---- !u!114 &6902496237404024209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5993247098640713207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9a5cea3d73a4234aa48131d662d170b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoRejectStates: -1
-  componentTypes: {fileID: 6902496237404024214}
---- !u!114 &6902496237404024214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5993247098640713207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d01a890104495a49a7a72c5733174ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Found:
-    m_PersistentCalls:
-      m_Calls: []
-  NotFound:
-    m_PersistentCalls:
-      m_Calls: []
-  IsEmpty:
-    m_PersistentCalls:
-      m_Calls: []
-  IsPopulated:
-    m_PersistentCalls:
-      m_Calls: []
-  Populated:
-    m_PersistentCalls:
-      m_Calls: []
-  Added:
-    m_PersistentCalls:
-      m_Calls: []
-  Removed:
-    m_PersistentCalls:
-      m_Calls: []
-  Emptied:
-    m_PersistentCalls:
-      m_Calls: []
-  currentIndex: 0
-  elements:
-  - assemblyQualifiedTypeName: InteractableSpiceShakerTag, VRTK.Samples.Farm.Runtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &6902496237461439818
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,60 +972,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.09492, y: 0.196, z: 0.09492}
   m_Center: {x: 0, y: 0.098, z: 0}
---- !u!114 &6902496237614581803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5993247098849321053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9a5cea3d73a4234aa48131d662d170b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoRejectStates: -1
-  componentTypes: {fileID: 6902496237614581800}
---- !u!114 &6902496237614581800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5993247098849321053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d01a890104495a49a7a72c5733174ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Found:
-    m_PersistentCalls:
-      m_Calls: []
-  NotFound:
-    m_PersistentCalls:
-      m_Calls: []
-  IsEmpty:
-    m_PersistentCalls:
-      m_Calls: []
-  IsPopulated:
-    m_PersistentCalls:
-      m_Calls: []
-  Populated:
-    m_PersistentCalls:
-      m_Calls: []
-  Added:
-    m_PersistentCalls:
-      m_Calls: []
-  Removed:
-    m_PersistentCalls:
-      m_Calls: []
-  Emptied:
-    m_PersistentCalls:
-      m_Calls: []
-  currentIndex: 0
-  elements:
-  - assemblyQualifiedTypeName: InteractableSpiceShakerTag, VRTK.Samples.Farm.Runtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &6902496238140924607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,7 +1205,7 @@ PrefabInstance:
     - target: {fileID: 929674164215565716, guid: caa435a632139cc42ba8f2ff90a792da,
         type: 3}
       propertyPath: m_Radius
-      value: 0.4
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 929674165247617146, guid: caa435a632139cc42ba8f2ff90a792da,
         type: 3}
@@ -1317,7 +1317,7 @@ PrefabInstance:
     - target: {fileID: 929674164215565716, guid: caa435a632139cc42ba8f2ff90a792da,
         type: 3}
       propertyPath: m_Radius
-      value: 0.4
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 929674165247617146, guid: caa435a632139cc42ba8f2ff90a792da,
         type: 3}
@@ -1429,7 +1429,7 @@ PrefabInstance:
     - target: {fileID: 929674164215565716, guid: caa435a632139cc42ba8f2ff90a792da,
         type: 3}
       propertyPath: m_Radius
-      value: 0.4
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 929674165247617146, guid: caa435a632139cc42ba8f2ff90a792da,
         type: 3}
@@ -1541,7 +1541,7 @@ PrefabInstance:
     - target: {fileID: 929674164215565716, guid: caa435a632139cc42ba8f2ff90a792da,
         type: 3}
       propertyPath: m_Radius
-      value: 0.4
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 929674165247617146, guid: caa435a632139cc42ba8f2ff90a792da,
         type: 3}
@@ -1653,7 +1653,7 @@ PrefabInstance:
     - target: {fileID: 929674164215565716, guid: caa435a632139cc42ba8f2ff90a792da,
         type: 3}
       propertyPath: m_Radius
-      value: 0.4
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 929674165247617146, guid: caa435a632139cc42ba8f2ff90a792da,
         type: 3}
@@ -1765,7 +1765,7 @@ PrefabInstance:
     - target: {fileID: 929674164215565716, guid: caa435a632139cc42ba8f2ff90a792da,
         type: 3}
       propertyPath: m_Radius
-      value: 0.4
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 929674165247617146, guid: caa435a632139cc42ba8f2ff90a792da,
         type: 3}
