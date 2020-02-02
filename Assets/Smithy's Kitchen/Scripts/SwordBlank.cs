@@ -30,6 +30,7 @@ public class SwordBlank : MonoBehaviour
 				contact.thisCollider.transform.parent.localEulerAngles = Vector3.zero;
 				GetComponent<AudioSource>().Play();
 				GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.2f );
+				SmithysKitchen.EmitParticleImpact( contact.otherCollider.transform.position );
 				hitdelay = Time.time + 0.02f;
 			}
 		}
@@ -56,6 +57,7 @@ public class SwordBlank : MonoBehaviour
 			closest.parent.localEulerAngles = Vector3.zero;
 			GetComponent<AudioSource>().Play();
 			GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.2f );
+			SmithysKitchen.EmitParticleImpact( other.transform.position );
 			hitdelay = Time.time + 0.02f;
 		}
 

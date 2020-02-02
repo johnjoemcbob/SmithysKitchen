@@ -16,7 +16,7 @@ public class Mould : MonoBehaviour
 	{
 		RemainingCookTime = CookTime;
 		Level = 0;
-		AddLiquid( 1 );
+		//AddLiquid( 1 );
 	}
 
 	public void AddLiquid( float liquid )
