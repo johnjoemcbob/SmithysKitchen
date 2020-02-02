@@ -14,8 +14,8 @@ public class StirBowl : MonoBehaviour
 
 	List<Collider> PossibleIngredients = new List<Collider>();
 
-	//private Vector2 LiquidLevels = new Vector2( 0.072f, 0.211f );
-	//private Vector2 LiquidScales = new Vector2( 0.85f, 1 );
+	private Vector2 LiquidLevels = new Vector2( 0.072f, 0.211f );
+	private Vector2 LiquidScales = new Vector2( 0.85f, 1 );
 
 	private int lastquad = -1;
 	private int dir = 0;
@@ -25,10 +25,26 @@ public class StirBowl : MonoBehaviour
 	private void Start()
 	{
 		//QuadEntered( 0 );
+		//toadd.Add( transform.position + new Vector3( 0, 0.1f ) );
+		//toadd.Add( transform.position + new Vector3( 0, 0.2f ) );
+		//toadd.Add( transform.position + new Vector3( 0, 0.3f ) );
+		//toadd.Add( transform.position + new Vector3( 0, 0.4f ) );
+		//toadd.Add( transform.position + new Vector3( 0, 0.5f ) );
+		//toadd.Add( transform.position + new Vector3( 0, 0.6f ) );
 	}
 
+	List<Vector3> toadd = new List<Vector3>();
+	float nextadd = 0;
+	float betweenadd = 0.2f;
 	private void Update()
 	{
+		//if ( toadd.Count > 0 && nextadd <= Time.time )
+		//{
+		//	FindObjectOfType<MCBlob>().Add( toadd[0] );
+		//	toadd.RemoveAt( 0 );
+		//	nextadd = Time.time + betweenadd;
+		//}
+
 		//if ( Input.GetKeyDown( KeyCode.Alpha1 ) )
 		//{
 		//	int next = lastquad + 1;
@@ -51,12 +67,10 @@ public class StirBowl : MonoBehaviour
 
 	public void QuadEntered( Collider whisk, int quad )
 	{
-		if ( whiskcount >= RequiredWhisks ) return;
+		//if ( whiskcount >= RequiredWhisks ) return;
 
 		if ( lastquad != quad && lastquadtime + WhiskTime <= Time.time )
 		{
-			Debug.Log( "Enter quad; " + quad );
-
 			Whisk( whisk );
 
 			// Show correct arrow
@@ -77,7 +91,7 @@ public class StirBowl : MonoBehaviour
 			}
 			for ( int arrow = 0; arrow < QuadrantArrows.Length; arrow++ )
 			{
-				QuadrantArrows[arrow].gameObject.SetActive( arrow == next );
+				//QuadrantArrows[arrow].gameObject.SetActive( arrow == next );
 				QuadrantArrows[arrow].localEulerAngles = new Vector3( 0, 0, 90 * ( arrow + 1 ) + ( ( dir == 1 ) ? 90 : 0 ) + ( arrow % 2 != 0 ? 180 : 0 ) );
 				QuadrantArrows[arrow].localScale = new Vector3( ( ( dir == 1 ) ? 0.5f : -0.5f ), 0.5f, 0.5f );
 			}
@@ -89,42 +103,31 @@ public class StirBowl : MonoBehaviour
 
 	private void Whisk( Collider whisk )
 	{
-		if ( whiskcount >= RequiredWhisks ) return;
+		//if ( whiskcount >= RequiredWhisks ) return;
 
 		whiskcount++;
-
-		//float height = Mathf.Lerp( LiquidLevels.x, LiquidLevels.y, (float) whiskcount / RequiredWhisks );
-		//float scale = Mathf.Lerp( LiquidScales.x, LiquidScales.y, (float) whiskcount / RequiredWhisks );
-		//Debug.Log( (float) whiskcount / RequiredWhisks + " " + height + " " + scale );
-		//LiquidLevel.localPosition = new Vector3( 0, height, 0 );
-		//LiquidLevel.localScale = Vector3.one * scale;
+		UpdateLiquid();
 
 		// Reduce any vegetables inside
-		int vegcount = 0;
+		// And convert to liquid
 		foreach ( var ingredient in PossibleIngredients )
 		{
 			if ( ingredient != null )
 			{
-				ingredient.transform.localScale -= Vector3.one * 0.2f;
+				ingredient.transform.localScale -= Vector3.one * 0.4f;
 				if ( ingredient.transform.localScale.x <= 0 )
 				{
 					Destroy( ingredient.attachedRigidbody.gameObject );
+					//toadd.Add( ingredient.transform.position + new Vector3( 0, 0.1f, 0 ) );
 				}
-				vegcount++;
 			}
 		}
 
-		// Convert to liquid
-		for ( int liquid = 0; liquid < vegcount; liquid++ )
-		{
-			GetComponentInChildren<MCBlob>().Add();
-		}
-
 		// Stir liquid
-		foreach ( var blob in GetComponentInChildren<MCBlob>().BlobObjectsLocations )
-		{
-			blob.attachedRigidbody.AddForce( whisk.GetComponentInParent<KinematicVelocity>().Velocity * 100 );
-		}
+		//foreach ( var blob in FindObjectOfType<MCBlob>().BlobObjectsLocations )
+		//{
+		//	blob.attachedRigidbody.AddForce( whisk.GetComponentInParent<KinematicVelocity>().Velocity * 100 );
+		//}
 
 		// Reduce liquid
 		//GetComponentInChildren<MCBlob>().isoLevel += 0.4f;
@@ -149,5 +152,32 @@ public class StirBowl : MonoBehaviour
 		{
 			PossibleIngredients.Remove( other );
 		}
+	}
+
+	private void OnTriggerStay( Collider other )
+	{
+		if ( other.attachedRigidbody.transform.parent.name == "Mould" && other.transform.up.y <= 0.5f )
+		{
+			Debug.Log( other.transform.up );
+			PourOut();
+			other.GetComponentInParent<Mould>().AddLiquid( 0.1f );
+		}
+	}
+
+	public void PourOut()
+	{
+		whiskcount--;
+		UpdateLiquid();
+	}
+
+	private void UpdateLiquid()
+	{
+		whiskcount = Mathf.Max( whiskcount, 0 );
+		whiskcount = Mathf.Min( whiskcount, RequiredWhisks );
+		float height = Mathf.Lerp( LiquidLevels.x, LiquidLevels.y, (float) whiskcount / RequiredWhisks );
+		float scale = Mathf.Lerp( LiquidScales.x, LiquidScales.y, (float) whiskcount / RequiredWhisks );
+		Debug.Log( (float) whiskcount / RequiredWhisks + " " + height + " " + scale );
+		LiquidLevel.localPosition = new Vector3( 0, height, 0 );
+		LiquidLevel.localScale = Vector3.one * scale;
 	}
 }

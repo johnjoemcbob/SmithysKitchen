@@ -78,6 +78,7 @@ public class ChoppableVeg : MonoBehaviour
 		if ( nextchop >= Segments.Length ) return;
 
 		Segments[nextchop].SetParent( null );
+		Segments[nextchop].tag = "Ingredient";
 		//Segments[nextchop].gameObject.AddComponent<Rigidbody>();
 		SmithysKitchen.CreateGrabbable( Segments[nextchop].gameObject );
 

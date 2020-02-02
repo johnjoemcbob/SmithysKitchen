@@ -98,7 +98,18 @@ MonoBehaviour:
       m_Calls: []
   Grabbed:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7534608879305164045}
+        m_MethodName: OnGrabbed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Ungrabbed:
     m_PersistentCalls:
       m_Calls: []
@@ -686,6 +697,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SegRotation
       objectReference: {fileID: 0}
+    - target: {fileID: 8908464006510537972, guid: 20b32c3f16e17ee47adf5e69432ec723,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e9fe3004b1773b2438c3b585c8f7a4cc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20b32c3f16e17ee47adf5e69432ec723, type: 3}
 --- !u!4 &2031836131394877656 stripped
@@ -761,6 +777,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SegRotation
       objectReference: {fileID: 0}
+    - target: {fileID: 8908464006510537972, guid: 20b32c3f16e17ee47adf5e69432ec723,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e9fe3004b1773b2438c3b585c8f7a4cc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20b32c3f16e17ee47adf5e69432ec723, type: 3}
 --- !u!1001 &3803712070299850109
@@ -1010,6 +1031,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseRotation
       objectReference: {fileID: 0}
+    - target: {fileID: 8908464006510537972, guid: 20b32c3f16e17ee47adf5e69432ec723,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e9fe3004b1773b2438c3b585c8f7a4cc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20b32c3f16e17ee47adf5e69432ec723, type: 3}
 --- !u!4 &8528322381753864310 stripped
@@ -1361,6 +1387,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SegRotation
       objectReference: {fileID: 0}
+    - target: {fileID: 8908464006510537972, guid: 20b32c3f16e17ee47adf5e69432ec723,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e9fe3004b1773b2438c3b585c8f7a4cc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20b32c3f16e17ee47adf5e69432ec723, type: 3}
 --- !u!4 &6994227664302304384 stripped
@@ -1436,6 +1467,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SegRotation
       objectReference: {fileID: 0}
+    - target: {fileID: 8908464006510537972, guid: 20b32c3f16e17ee47adf5e69432ec723,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e9fe3004b1773b2438c3b585c8f7a4cc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20b32c3f16e17ee47adf5e69432ec723, type: 3}
 --- !u!4 &6400397288568298772 stripped
@@ -1511,6 +1547,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SegRotation
       objectReference: {fileID: 0}
+    - target: {fileID: 8908464006510537972, guid: 20b32c3f16e17ee47adf5e69432ec723,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e9fe3004b1773b2438c3b585c8f7a4cc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20b32c3f16e17ee47adf5e69432ec723, type: 3}
 --- !u!4 &6100563956882412246 stripped
@@ -1586,6 +1627,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SegRotation
       objectReference: {fileID: 0}
+    - target: {fileID: 8908464006510537972, guid: 20b32c3f16e17ee47adf5e69432ec723,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e9fe3004b1773b2438c3b585c8f7a4cc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20b32c3f16e17ee47adf5e69432ec723, type: 3}
 --- !u!4 &6337847292163310070 stripped

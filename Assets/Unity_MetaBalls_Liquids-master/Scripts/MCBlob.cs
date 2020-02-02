@@ -47,6 +47,7 @@ public class MCBlob : MonoBehaviour
     int _dimX = 30;
     int _dimY = 30;
     int _dimZ = 30;
+	float size = 0.5f;
 
     public int dimX
     {
@@ -128,12 +129,21 @@ public class MCBlob : MonoBehaviour
         UpdateBlobs();
     }
 	
-	public void Add()
+	public void Add( Vector3 pos )
 	{
 		GameObject sphere = Instantiate( PrefabSphere, transform );
-		sphere.transform.localPosition = new Vector3( Random.Range( -HorizontalOff, HorizontalOff ), Scale, Random.Range( -HorizontalOff, HorizontalOff ) );
+		//sphere.transform.localPosition = new Vector3( Random.Range( -HorizontalOff, HorizontalOff ), Scale, Random.Range( -HorizontalOff, HorizontalOff ) );
+		sphere.transform.position = pos;
 		sphere.transform.localScale = Vector3.one * Scale;
 		Blobs.Add( sphere.GetComponent<SphereCollider>() );
+
+		BlobObjectsLocations = Blobs.ToArray();
+		UpdateBlobs();
+	}
+
+	public void Remove( SphereCollider blob )
+	{
+		Blobs.Remove( blob );
 
 		BlobObjectsLocations = Blobs.ToArray();
 		UpdateBlobs();
@@ -165,6 +175,7 @@ public class MCBlob : MonoBehaviour
                 blobs[i][3] = BlobObjectsLocations[i].radius * BlobObjectsLocations[i].transform.localScale.x * 2;
             }
         }
+		GetComponentInChildren<MeshRenderer>().enabled = ( BlobObjectsLocations.Length != 0 );
     }
 
 
@@ -479,9 +490,9 @@ public class MCBlob : MonoBehaviour
         for (i = 0; i < blobs.Length; i++)
         {
             float[] pb = blobs[i];
-            jx = (int)((pb[0] + .5f) * dimX);
-            jy = (int)((pb[1] + .5f) * dimY);
-            jz = (int)((pb[2] + .5f) * dimZ);
+            jx = (int)((pb[0] + size) * dimX);
+            jy = (int)((pb[1] + size) * dimY);
+            jz = (int)((pb[2] + size) * dimZ);
 
 
             while (jz >= 0)
@@ -643,7 +654,7 @@ public class MCBlob : MonoBehaviour
             {
                 for (jz = 0.0f; jz <= dimZ; jz++)
                 {
-                    _points[i] = new mcPoint((jx / dimX) - .5f, (jy / dimY) - .5f, (jz / dimZ) - .5f, (int)jx, (int)jy, (int)jz, this);
+                    _points[i] = new mcPoint((jx / dimX) - size, (jy / dimY) - size, (jz / dimZ) - size, (int)jx, (int)jy, (int)jz, this);
 
                     i++;
                 }

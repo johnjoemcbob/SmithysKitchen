@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6827467455508843085}
   m_Layer: 0
   m_Name: Handle
-  m_TagString: Untagged
+  m_TagString: Utensil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 203457317116002971}
   m_Layer: 9
   m_Name: Meshes
-  m_TagString: Untagged
+  m_TagString: Utensil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 681917454590614206}
   m_Layer: 9
   m_Name: DefaultMesh
-  m_TagString: Untagged
+  m_TagString: Utensil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 7482413540292235451}
   m_Layer: 9
   m_Name: Whisk
-  m_TagString: Untagged
+  m_TagString: Utensil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1781,10 +1781,20 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: -3060707659806702335, guid: d110208645996e449b5750ede8c5b121,
+        type: 3}
+      propertyPath: m_TagString
+      value: Utensil
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: d110208645996e449b5750ede8c5b121,
         type: 3}
       propertyPath: m_Name
       value: whisk
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d110208645996e449b5750ede8c5b121,
+        type: 3}
+      propertyPath: m_TagString
+      value: Utensil
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d110208645996e449b5750ede8c5b121, type: 3}

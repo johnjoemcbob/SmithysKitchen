@@ -62,6 +62,11 @@ public class SwordBlank : MonoBehaviour
 		CheckStraight();
 	}
 
+	public void OnGrabbed()
+	{
+		transform.parent = null;
+	}
+
 	private bool CanStraighten( Collider hammer )
 	{
 		if ( hammer.attachedRigidbody.GetComponentInChildren<KinematicVelocity>().Velocity.magnitude >= SpeedRequired && hitdelay <= Time.time )
@@ -81,7 +86,7 @@ public class SwordBlank : MonoBehaviour
 			}
 		}
 
-		Randomise();
+		//Randomise();
 	}
 
 	private void Randomise()
