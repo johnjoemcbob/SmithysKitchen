@@ -28,6 +28,7 @@ public class ChoppableVeg : MonoBehaviour
 				ChopOff( contact.thisCollider.transform );
 				GetComponent<AudioSource>().Play();
 				GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.2f );
+				SmithysKitchen.EmitParticleImpact( contact.otherCollider.transform.position );
 			}
 		}
 	}
@@ -53,6 +54,7 @@ public class ChoppableVeg : MonoBehaviour
 				ChopOff( closest );
 				GetComponent<AudioSource>().Play();
 				GetComponent<AudioSource>().pitch = Random.Range( 1.8f, 2.2f );
+				SmithysKitchen.EmitParticleImpact( other.transform.position );
 			}
 		}
 	}
@@ -80,7 +82,9 @@ public class ChoppableVeg : MonoBehaviour
 		Segments[nextchop].SetParent( null );
 		Segments[nextchop].tag = "Ingredient";
 		//Segments[nextchop].gameObject.AddComponent<Rigidbody>();
-		SmithysKitchen.CreateGrabbable( Segments[nextchop].gameObject );
+		GameObject grab = SmithysKitchen.CreateGrabbable( Segments[nextchop].gameObject );
+		var sound = grab.AddComponent<PhysicsSound>();
+		sound.SelfType = PhysicsSound.Type.Organic;
 
 		// temp
 		impress++;

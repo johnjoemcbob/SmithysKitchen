@@ -123,6 +123,10 @@ public class StirBowl : MonoBehaviour
 			}
 		}
 
+		SmithysKitchen.EmitParticleImpact( whisk.transform.position );
+		GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.5f );
+		GetComponent<AudioSource>().Play();
+
 		// Stir liquid
 		//foreach ( var blob in FindObjectOfType<MCBlob>().BlobObjectsLocations )
 		//{
@@ -169,6 +173,9 @@ public class StirBowl : MonoBehaviour
 	{
 		whiskcount--;
 		UpdateLiquid();
+
+		GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.5f );
+		GetComponent<AudioSource>().Play();
 	}
 
 	private void UpdateLiquid()

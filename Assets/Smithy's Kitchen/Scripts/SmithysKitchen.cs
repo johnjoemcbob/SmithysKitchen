@@ -19,4 +19,15 @@ public class SmithysKitchen : MonoBehaviour
 		}
 		return grabbable;
 	}
+
+	public static GameObject EmitParticleImpact( Vector3 point )
+	{
+		GameObject particle = Instantiate( Resources.Load( "Prefabs/Particle Effect" ) ) as GameObject;
+		{
+			particle.transform.position = point;
+
+			Destroy( particle, 1 );
+		}
+		return particle;
+	}
 }
