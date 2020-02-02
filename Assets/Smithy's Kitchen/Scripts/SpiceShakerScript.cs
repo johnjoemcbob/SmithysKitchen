@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpiceShakerScript : MonoBehaviour
 {
     bool isShaking = false;
+    public MeshRenderer spiceRenderer;
     public ParticleSystem particleSprinkles;
     public Color particleColour = Color.white;
 
@@ -15,6 +16,14 @@ public class SpiceShakerScript : MonoBehaviour
 
         ParticleSystem.MainModule ma = particleSprinkles.main;
         ma.startColor = particleColour;
+
+        foreach (Material mat in spiceRenderer.materials)
+        {
+            if (mat.name.Contains("Spice"))
+            {
+                mat.color = particleColour;
+            }
+        }
     }
 
     // Update is called once per frame

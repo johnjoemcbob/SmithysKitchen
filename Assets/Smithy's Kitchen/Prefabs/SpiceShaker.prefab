@@ -5146,7 +5146,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -5644596079703476419, guid: db1300e06e221a64abd16b3cfe555e5a, type: 3}
-  - {fileID: -3092847324252717431, guid: db1300e06e221a64abd16b3cfe555e5a, type: 3}
+  - {fileID: 2100000, guid: 84103d8ecd5abca4e9b7ce3ace1d0780, type: 2}
   - {fileID: -3963241562183589234, guid: db1300e06e221a64abd16b3cfe555e5a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -5226,6 +5226,7 @@ GameObject:
   - component: {fileID: 8501761420054734738}
   - component: {fileID: 5401092129502522218}
   - component: {fileID: 1310198475}
+  - component: {fileID: 4418651959531888323}
   m_Layer: 9
   m_Name: SpiceShaker
   m_TagString: Untagged
@@ -5372,8 +5373,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510a3b99122d0f044a2b89f183bf6f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spiceRenderer: {fileID: 7312915980497647142}
   particleSprinkles: {fileID: 176070181}
-  particleColour: {r: 0, g: 1, b: 0.4021151, a: 1}
+  particleColour: {r: 0.21226418, g: 1, b: 0.6422748, a: 1}
+--- !u!114 &4418651959531888323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7679179825668241050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 602f3fb2c9de67b4ea11ccb1d2ddfac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &457947922869890981
 PrefabInstance:
   m_ObjectHideFlags: 0
