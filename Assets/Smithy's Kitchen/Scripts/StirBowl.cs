@@ -156,8 +156,9 @@ public class StirBowl : MonoBehaviour
 
 	private void OnTriggerStay( Collider other )
 	{
-		if ( other.attachedRigidbody.transform.parent.name == "Mould" && other.transform.up.y <= 0.5f )
+		if ( other.attachedRigidbody.tag == "Container" && other.transform.up.y <= 0.5f )
 		{
+			Debug.Log( "In bowl, pour" );
 			Debug.Log( other.transform.up );
 			PourOut();
 			other.GetComponentInParent<Mould>().AddLiquid( 0.1f );
@@ -176,7 +177,7 @@ public class StirBowl : MonoBehaviour
 		whiskcount = Mathf.Min( whiskcount, RequiredWhisks );
 		float height = Mathf.Lerp( LiquidLevels.x, LiquidLevels.y, (float) whiskcount / RequiredWhisks );
 		float scale = Mathf.Lerp( LiquidScales.x, LiquidScales.y, (float) whiskcount / RequiredWhisks );
-		Debug.Log( (float) whiskcount / RequiredWhisks + " " + height + " " + scale );
+		//Debug.Log( (float) whiskcount / RequiredWhisks + " " + height + " " + scale );
 		LiquidLevel.localPosition = new Vector3( 0, height, 0 );
 		LiquidLevel.localScale = Vector3.one * scale;
 	}

@@ -8,9 +8,27 @@ public class Oven : MonoBehaviour
 	public GameObject Light;
 	public AudioSource SoundLoop;
 
-    void Update()
+	public bool Cooking = false;
+
+	private void Start()
+	{
+		Door.parent.parent.parent.localEulerAngles = new Vector3( 42.584f, 0, 0 );
+	}
+	void Update()
     {
-		Debug.Log( Door.up );
-       // if ( Door.up)
-    }
+		//Debug.Log( Door.up );
+		Cooking = ( Door.up.z <= 0.1f );
+		if ( Cooking )
+		{
+			if ( !SoundLoop.isPlaying )
+			{
+				SoundLoop.Play();
+			}
+		}
+		else
+		{
+			SoundLoop.Pause();
+		}
+		Light.SetActive( Cooking );
+	}
 }
