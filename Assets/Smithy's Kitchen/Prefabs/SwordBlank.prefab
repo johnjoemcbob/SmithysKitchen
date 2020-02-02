@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 7165367044440343014}
   - component: {fileID: 7534608879305164045}
   - component: {fileID: 6654424252432909893}
+  - component: {fileID: 8773331891734304695}
   m_Layer: 0
   m_Name: SwordBlank
   m_TagString: Untagged
@@ -299,6 +300,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8773331891734304695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682574569258989860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dad0797690b300543abd4bf232157c7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1801998265520046599
 GameObject:
   m_ObjectHideFlags: 0
