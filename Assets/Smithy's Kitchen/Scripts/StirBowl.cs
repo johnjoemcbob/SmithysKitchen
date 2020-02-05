@@ -6,7 +6,7 @@ public class StirBowl : MonoBehaviour
 {
 	[Header( "Parameters" )]
 	public float WhiskTime = 0.4f;
-	public int RequiredWhisks = 10;
+	public int RequiredWhisks = 30;
 
 	[Header( "References" )]
 	public Transform[] QuadrantArrows;
@@ -15,7 +15,7 @@ public class StirBowl : MonoBehaviour
 	List<Collider> PossibleIngredients = new List<Collider>();
 
 	private Vector2 LiquidLevels = new Vector2( 0.072f, 0.211f );
-	private Vector2 LiquidScales = new Vector2( 0.85f, 1 );
+	private Vector2 LiquidScales = new Vector2( 0.85f, 1.05f );
 
 	private int lastquad = -1;
 	private int dir = 0;
@@ -65,6 +65,21 @@ public class StirBowl : MonoBehaviour
 		//}
 	}
 
+	private void OnTriggerStay( Collider other )
+	{
+		// Bowl/mould collision (not blobs)
+		if ( other != null && other.attachedRigidbody != null && other.attachedRigidbody.tag == "Container" && other.transform.up.y <= 0.5f )
+		{
+			PourOut();
+
+			Mould mould = other.GetComponentInParent<Mould>();
+			if ( mould )
+			{
+				other.GetComponentInParent<Mould>().AddLiquidLevel( 0.1f );
+			}
+		}
+	}
+
 	public void QuadEntered( Collider whisk, int quad )
 	{
 		//if ( whiskcount >= RequiredWhisks ) return;
@@ -105,23 +120,24 @@ public class StirBowl : MonoBehaviour
 	{
 		//if ( whiskcount >= RequiredWhisks ) return;
 
-		whiskcount++;
-		UpdateLiquid();
-
 		// Reduce any vegetables inside
 		// And convert to liquid
 		foreach ( var ingredient in PossibleIngredients )
 		{
 			if ( ingredient != null )
 			{
-				ingredient.transform.localScale -= Vector3.one * 0.4f;
-				if ( ingredient.transform.localScale.x <= 0 )
+				whiskcount++;
+
+				ingredient.attachedRigidbody.transform.localScale -= Vector3.one * 0.4f;
+				if ( ingredient.attachedRigidbody.transform.localScale.x <= 0 )
 				{
 					Destroy( ingredient.attachedRigidbody.gameObject );
 					//toadd.Add( ingredient.transform.position + new Vector3( 0, 0.1f, 0 ) );
 				}
 			}
 		}
+
+		UpdateLiquid();
 
 		SmithysKitchen.EmitParticleImpact( whisk.transform.position );
 		GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.5f );
@@ -148,6 +164,7 @@ public class StirBowl : MonoBehaviour
 
 	public void TrackIngredient( Collider other, bool track )
 	{
+		//Debug.Log( "Track; " + other + " " + track );
 		if ( track && !PossibleIngredients.Contains( other ) )
 		{
 			PossibleIngredients.Add( other );
@@ -158,33 +175,34 @@ public class StirBowl : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerStay( Collider other )
+	public bool PourOut()
 	{
-		if ( other.attachedRigidbody.tag == "Container" && other.transform.up.y <= 0.5f )
+		if ( whiskcount > 0 )
 		{
-			Debug.Log( "In bowl, pour" );
-			Debug.Log( other.transform.up );
-			PourOut();
-			other.GetComponentInParent<Mould>().AddLiquid( 0.1f );
+			whiskcount -= Mathf.Min( 1, RequiredWhisks / 10 );
+			UpdateLiquid();
+
+			GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.5f );
+			GetComponent<AudioSource>().Play();
+
+			return true;
 		}
-	}
-
-	public void PourOut()
-	{
-		whiskcount--;
-		UpdateLiquid();
-
-		GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.5f );
-		GetComponent<AudioSource>().Play();
+		return false;
 	}
 
 	private void UpdateLiquid()
 	{
 		whiskcount = Mathf.Max( whiskcount, 0 );
 		whiskcount = Mathf.Min( whiskcount, RequiredWhisks );
-		float height = Mathf.Lerp( LiquidLevels.x, LiquidLevels.y, (float) whiskcount / RequiredWhisks );
-		float scale = Mathf.Lerp( LiquidScales.x, LiquidScales.y, (float) whiskcount / RequiredWhisks );
-		//Debug.Log( (float) whiskcount / RequiredWhisks + " " + height + " " + scale );
+		float progress = (float) whiskcount / RequiredWhisks;
+		float height = Mathf.Lerp( LiquidLevels.x, LiquidLevels.y, progress );
+		float scale = Mathf.Lerp( LiquidScales.x, LiquidScales.y, progress );
+		if ( progress == 0 )
+		{
+			height = 0;
+			scale = 0;
+		}
+
 		LiquidLevel.localPosition = new Vector3( 0, height, 0 );
 		LiquidLevel.localScale = Vector3.one * scale;
 	}

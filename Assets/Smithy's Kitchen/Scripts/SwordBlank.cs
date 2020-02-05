@@ -10,6 +10,9 @@ public class SwordBlank : MonoBehaviour
 	[Header( "References" )]
 	public Transform[] SegmentRotations;
 
+	[HideInInspector]
+	public Mould Mould;
+
 	float hitdelay = 0;
 
 	public void Start()
@@ -67,6 +70,7 @@ public class SwordBlank : MonoBehaviour
 	public void OnGrabbed()
 	{
 		transform.parent = null;
+		Mould.OnSwordGrabbed();
 	}
 
 	private bool CanStraighten( Collider hammer )

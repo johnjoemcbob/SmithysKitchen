@@ -4,31 +4,42 @@ using UnityEngine;
 
 public class Mould : MonoBehaviour
 {
+	[Header( "References" )]
 	public Transform Liquid;
 	public Transform SpawnPoint;
+	public Collider LiquidInsideTrigger;
+
+	[Header( "Assets ")]
 	public GameObject SwordBlankPrefab;
 
 	private float Level = 0;
 	private float CookTime = 120;
 	private float RemainingCookTime;
 
+	private SwordBlank LastSwordBaked;
+
 	private void Start()
 	{
 		RemainingCookTime = CookTime;
 		Level = 0;
-		//AddLiquid( 1 );
+		if ( Application.isEditor )
+		{
+			AddLiquidLevel( 1 );
+			CookTime = 1;
+		}
 	}
 
-	public void AddLiquid( float liquid )
+	private void Update()
 	{
-		Level += liquid;
-		Level = Mathf.Max( Level, 0 );
-		Level = Mathf.Min( Level, 1 );
-		Liquid.localPosition = new Vector3( 0, Level * 0.0786f, 0 );
+		if ( transform.up.y < 0.5f && LastSwordBaked != null )
+		{
+			LastSwordBaked.OnGrabbed();
+		}
 	}
 
 	private void OnCollisionEnter( Collision collision )
 	{
+		// Blob based collision
 		if ( collision.collider.tag == "Water" )
 		{
 			if ( GetComponentInParent<MCBlob>() != null )
@@ -36,14 +47,14 @@ public class Mould : MonoBehaviour
 				GetComponentInParent<MCBlob>().Remove( collision.collider as SphereCollider );
 			}
 			Destroy( collision.rigidbody.gameObject );
-			Level += 0.1f;
-			Level = Mathf.Min( Level, 1 );
-			Liquid.localPosition = new Vector3( 0, Level * 0.0786f, 0 );
+
+			AddLiquidLevel( 0.1f );
 		}
 	}
 
 	private void OnTriggerEnter( Collider other )
 	{
+		// Blob based collision
 		if ( other.tag == "Water" )
 		{
 			if ( GetComponentInParent<MCBlob>() != null )
@@ -51,15 +62,17 @@ public class Mould : MonoBehaviour
 				GetComponentInParent<MCBlob>().Remove( other as SphereCollider );
 			}
 			Destroy( other.attachedRigidbody.gameObject );
-			Level += 0.1f;
-			Level = Mathf.Min( Level, 1 );
-			Liquid.localPosition = new Vector3( 0, Level * 0.0786f, 0 );
+
+			AddLiquidLevel( 0.1f );
 		}
+		// Bowl based collision
 		if ( other.tag == "Container" && other.transform.up.y <= 0.5f )
 		{
-			Debug.Log( "In mould, pour" );
-			other.attachedRigidbody.GetComponentInParent<StirBowl>().PourOut();
-			AddLiquid( 0.1f );
+			bool added = other.attachedRigidbody.GetComponentInParent<StirBowl>().PourOut();
+			if ( added )
+			{
+				AddLiquidLevel( 0.1f );
+			}
 		}
 	}
 
@@ -67,24 +80,52 @@ public class Mould : MonoBehaviour
 	{
 		if ( other.tag == "Oven" )
 		{
-			if ( Level > 0 && other.GetComponentInParent<Oven>().Cooking )
+			if ( Level > 0.5f && other.GetComponentInParent<Oven>().Cooking )
 			{
 				RemainingCookTime -= Time.deltaTime;
-				Debug.Log( RemainingCookTime );
+
 				if ( RemainingCookTime <= 0 )
 				{
-					RemainingCookTime = CookTime;
-
-					Level = 0;
-					Liquid.localPosition = new Vector3( 0, Level * 0.0786f, 0 );
-
-					GameObject sword = Instantiate( SwordBlankPrefab, SpawnPoint );
-					sword.transform.localPosition = Vector3.zero;
-					sword.transform.localEulerAngles = Vector3.zero;
-
-					GetComponent<AudioSource>().Play();
+					BakeSword();
 				}
 			}
 		}
+	}
+
+	private void BakeSword()
+	{
+		RemainingCookTime = CookTime;
+
+		SetLiquidLevel( 0 );
+
+		GameObject sword = Instantiate( SwordBlankPrefab, SpawnPoint );
+		sword.transform.localPosition = Vector3.zero;
+		sword.transform.localEulerAngles = Vector3.zero;
+		LastSwordBaked = sword.GetComponentInChildren<SwordBlank>();
+		LastSwordBaked.Mould = this;
+
+		GetComponent<AudioSource>().Play();
+
+		LiquidInsideTrigger.enabled = false;
+	}
+
+	public void AddLiquidLevel( float liquid )
+	{
+		Level += liquid;
+		SetLiquidLevel( Level );
+	}
+
+	private void SetLiquidLevel( float level )
+	{
+		Level = level;
+		Level = Mathf.Max( Level, 0 );
+		Level = Mathf.Min( Level, 1 );
+		Liquid.localPosition = new Vector3( 0, Level * 0.0786f, 0 );
+	}
+
+	public void OnSwordGrabbed()
+	{
+		LiquidInsideTrigger.enabled = true;
+		LastSwordBaked = null;
 	}
 }

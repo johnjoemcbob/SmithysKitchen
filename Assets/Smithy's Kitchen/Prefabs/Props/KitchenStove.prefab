@@ -323,7 +323,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2ef30310d461b584a8852862c8b88a83, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.318
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -838,6 +838,7 @@ MonoBehaviour:
   Door: {fileID: 7144186069928253846}
   Light: {fileID: 1088975643}
   SoundLoop: {fileID: 2117058293}
+  Cooking: 0
 --- !u!1 &5408310984055092527
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,6 +1360,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Handle
       objectReference: {fileID: 0}
+    - target: {fileID: 4346615151793384, guid: ea9a0c3b69bf0544cb97b07fe9dcffc9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346615151793384, guid: ea9a0c3b69bf0544cb97b07fe9dcffc9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346615151793384, guid: ea9a0c3b69bf0544cb97b07fe9dcffc9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4523491787938728, guid: ea9a0c3b69bf0544cb97b07fe9dcffc9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1493,7 +1506,7 @@ PrefabInstance:
     - target: {fileID: 114627923481588256, guid: ea9a0c3b69bf0544cb97b07fe9dcffc9,
         type: 3}
       propertyPath: driveLimit.maximum
-      value: 1080
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114627923481588256, guid: ea9a0c3b69bf0544cb97b07fe9dcffc9,
         type: 3}

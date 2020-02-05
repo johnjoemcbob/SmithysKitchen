@@ -16,8 +16,12 @@ public class ChoppableVeg : MonoBehaviour
 
 	float chopdelay = 0;
 
+	private bool Spawned = false;
+
 	public void OnCollisionEnter( Collision collision )
 	{
+		if ( !Spawned ) return;
+
 		ContactPoint[] contacts = new ContactPoint[collision.contactCount];
 		collision.GetContacts( contacts );
 
@@ -35,6 +39,8 @@ public class ChoppableVeg : MonoBehaviour
 
 	private void OnTriggerEnter( Collider other )
 	{
+		if ( !Spawned ) return;
+
 		if ( other.tag == "Knife" )
 		{
 			Transform closest = Segments[0];
@@ -61,7 +67,7 @@ public class ChoppableVeg : MonoBehaviour
 
 	private bool CanChop( Collider knife )
 	{
-		if ( knife.attachedRigidbody.GetComponentInChildren<KinematicVelocity>().Velocity.magnitude >= SpeedRequired && chopdelay <= Time.time )
+		if ( Spawned && knife.attachedRigidbody.GetComponentInChildren<KinematicVelocity>().Velocity.magnitude >= SpeedRequired && chopdelay <= Time.time )
 		{
 			return true;
 		}
@@ -72,6 +78,8 @@ public class ChoppableVeg : MonoBehaviour
 	int impressgoal = 5;
 	private void ChopOff( Transform segment )
 	{
+		if ( !Spawned ) return;
+
 		//segment.SetParent( null );
 		if ( nextchop >= Segments.Length - 1 )
 		{
@@ -97,5 +105,12 @@ public class ChoppableVeg : MonoBehaviour
 
 		nextchop++;
 		chopdelay = Time.time + 0.02f;
+	}
+
+	public void FirstGrabbed()
+	{
+		Spawned = true;
+		Head.GetComponent<Collider>().enabled = false;
+		GetComponentInChildren<VRTK.Prefabs.Interactions.Interactables.Grab.Action.GrabInteractableFollowAction>().GrabOffset = VRTK.Prefabs.Interactions.Interactables.Grab.Action.GrabInteractableFollowAction.OffsetType.PrecisionPoint;
 	}
 }
