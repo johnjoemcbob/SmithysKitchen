@@ -6,68 +6,152 @@ public class ChoppableVeg : MonoBehaviour
 {
 	[Header( "Parameters" )]
 	public float SpeedRequired = 3;
+	public float MaxPeelAngle = 60;
 
 	[Header( "References" )]
 	public Transform[] Segments;
 	public Transform Head;
+	public Transform[] Peels;
 
-	// temp, do in order for now - no matter where chopped
+	// temp, do in order for now - no matter where chopped // "temp" hahahahaha
 	int nextchop = 0;
 
 	float chopdelay = 0;
+	float peeldelay = 0;
+	private float[] PeelProgress = new float[] { 0, 0, 0, 0 };
+	private int CompletedPeels = 0;
 
-	private bool Spawned = false;
+	// TODO: Would be better as states
+	public enum State
+	{
+		Spawning,
+		Peeling,
+		Chopping,
+	}
+	private State CurrentState = State.Spawning;
 
 	public void OnCollisionEnter( Collision collision )
 	{
-		if ( !Spawned ) return;
+		if ( CurrentState == State.Spawning ) return;
 
 		ContactPoint[] contacts = new ContactPoint[collision.contactCount];
 		collision.GetContacts( contacts );
 
-		foreach ( var contact in contacts )
+		switch ( CurrentState )
 		{
-			if ( contact.otherCollider.tag == "Knife" && CanChop( contact.otherCollider ) )
-			{
-				ChopOff( contact.thisCollider.transform );
-				GetComponent<AudioSource>().Play();
-				GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.2f );
-				SmithysKitchen.EmitParticleImpact( contact.otherCollider.transform.position );
-			}
+			case State.Spawning:
+				break;
+			case State.Peeling:
+				foreach ( var contact in contacts )
+				{
+					if ( contact.otherCollider.tag == "Peel" && CanPeel( contact.otherCollider ) )
+					{
+						Transform closest = Peels[0];
+						float maxdist = -1;
+						foreach ( var seg in Peels )
+						{
+							if ( seg != null )
+							{
+								float dist = Vector3.Distance( seg.GetChild( 0 ).position, contact.otherCollider.transform.position );
+								if ( maxdist == -1 || dist < maxdist )
+								{
+									closest = seg;
+									maxdist = dist;
+								}
+							}
+						}
+
+						Peel( closest );
+						GetComponent<AudioSource>().Play();
+						GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.2f );
+						SmithysKitchen.EmitParticleImpact( contact.otherCollider.transform.position );
+					}
+				}
+				break;
+			case State.Chopping:
+				foreach ( var contact in contacts )
+				{
+					if ( contact.otherCollider.tag == "Knife" && CanChop( contact.otherCollider ) )
+					{
+						ChopOff();
+						GetComponent<AudioSource>().Play();
+						GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.2f );
+						SmithysKitchen.EmitParticleImpact( contact.otherCollider.transform.position );
+					}
+				}
+				break;
+			default:
+				break;
 		}
 	}
 
 	private void OnTriggerEnter( Collider other )
 	{
-		if ( !Spawned ) return;
+		if ( CurrentState == State.Spawning ) return;
 
-		if ( other.tag == "Knife" )
+		switch ( CurrentState )
 		{
-			Transform closest = Segments[0];
-			float maxdist = -1;
-			foreach ( var seg in Segments )
-			{
-				float dist = Vector3.Distance( seg.position, other.transform.position );
-				if ( maxdist == -1 || dist < maxdist )
+			case State.Spawning:
+				break;
+			case State.Peeling:
+				if ( other.tag == "Peel" )
 				{
-					closest = seg;
-					maxdist = dist;
-				}
-			}
+					Transform closest = Peels[0];
+					float maxdist = -1;
+					foreach ( var seg in Peels )
+					{
+						if ( seg != null )
+						{
+							float dist = Vector3.Distance( seg.GetChild( 0 ).position, other.transform.position );
+							if ( maxdist == -1 || dist < maxdist )
+							{
+								closest = seg;
+								maxdist = dist;
+							}
+						}
+					}
 
-			if ( CanChop( other ) )
-			{
-				ChopOff( closest );
-				GetComponent<AudioSource>().Play();
-				GetComponent<AudioSource>().pitch = Random.Range( 1.8f, 2.2f );
-				SmithysKitchen.EmitParticleImpact( other.transform.position );
-			}
+					if ( CanPeel( other ) )
+					{
+						Peel( closest );
+						GetComponent<AudioSource>().Play();
+						GetComponent<AudioSource>().pitch = Random.Range( 1.8f, 2.2f );
+						SmithysKitchen.EmitParticleImpact( other.transform.position );
+					}
+				}
+				break;
+			case State.Chopping:
+				if ( other.tag == "Knife" )
+				{
+					Transform closest = Segments[0];
+					float maxdist = -1;
+					foreach ( var seg in Segments )
+					{
+						float dist = Vector3.Distance( seg.position, other.transform.position );
+						if ( maxdist == -1 || dist < maxdist )
+						{
+							closest = seg;
+							maxdist = dist;
+						}
+					}
+
+					if ( CanChop( other ) )
+					{
+						ChopOff();
+						GetComponent<AudioSource>().Play();
+						GetComponent<AudioSource>().pitch = Random.Range( 1.8f, 2.2f );
+						SmithysKitchen.EmitParticleImpact( other.transform.position );
+					}
+				}
+				break;
+			default:
+				break;
 		}
 	}
 
 	private bool CanChop( Collider knife )
 	{
-		if ( Spawned && knife.attachedRigidbody.GetComponentInChildren<KinematicVelocity>().Velocity.magnitude >= SpeedRequired && chopdelay <= Time.time )
+		if ( CurrentState == State.Chopping && knife.attachedRigidbody.GetComponentInChildren<KinematicVelocity>().Velocity.magnitude >= SpeedRequired && chopdelay <= Time.time )
 		{
 			return true;
 		}
@@ -76,11 +160,10 @@ public class ChoppableVeg : MonoBehaviour
 
 	int impress = 0;
 	int impressgoal = 5;
-	private void ChopOff( Transform segment )
+	private void ChopOff()
 	{
-		if ( !Spawned ) return;
+		if ( CurrentState != State.Chopping ) return;
 
-		//segment.SetParent( null );
 		if ( nextchop >= Segments.Length - 1 )
 		{
 			Head.GetComponentInParent<Rigidbody>().isKinematic = false;
@@ -94,7 +177,7 @@ public class ChoppableVeg : MonoBehaviour
 		var sound = grab.AddComponent<PhysicsSound>();
 		sound.SelfType = PhysicsSound.Type.Organic;
 
-		// temp
+		// temp // hahahaha
 		impress++;
 		if ( impress >= impressgoal )
 		{
@@ -107,10 +190,72 @@ public class ChoppableVeg : MonoBehaviour
 		chopdelay = Time.time + 0.02f;
 	}
 
+	private bool CanPeel( Collider knife )
+	{
+		if ( CurrentState == State.Peeling && peeldelay <= Time.time )
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private void Peel( Transform peel )
+	{
+		if ( CurrentState != State.Peeling ) return;
+
+		// Find which index this peel is
+		int peelID = System.Array.IndexOf( Peels, peel );
+
+		// Add progress to that one
+		PeelProgress[peelID] += 0.1f;
+		Transform basebone = peel.GetChild( 0 ).GetChild( 0 );
+		Transform[] bones = new Transform[5];
+		bones[0] = basebone.GetChild( 0 );
+		bones[1] = bones[0].GetChild( 0 );
+		bones[2] = bones[1].GetChild( 0 );
+		bones[3] = bones[2].GetChild( 0 );
+		bones[4] = bones[3].GetChild( 0 );
+
+		// Invert the effect so the top bone has the most progress always
+		for ( int bone = 0; bone < bones.Length; bone++ )
+		{
+			float effect = ( (float) bone / bones.Length );
+			float inverse_effect = ( 1 - effect );
+			float mult = bones.Length;
+			float localprogress = Mathf.Clamp( ( PeelProgress[peelID] * mult ) - ( mult - 1 - ( 1 / mult ) * bone * mult ), 0.0f, 1.0f );
+			bones[bone].localEulerAngles = new Vector3( 1, 0, 0 ) * MaxPeelAngle * localprogress;
+		}
+
+		// If progress > 1 then pop off
+		if ( PeelProgress[peelID] >= 1 )
+		{
+			Peels[peelID].SetParent( null );
+			GameObject grab = SmithysKitchen.CreateGrabbable( Peels[peelID].gameObject );
+			var sound = grab.AddComponent<PhysicsSound>();
+			sound.SelfType = PhysicsSound.Type.Organic;
+			grab.GetComponentInChildren<Rigidbody>().AddExplosionForce( 10000, transform.position, 10 );
+			Destroy( grab, 5 );
+
+			Peels[peelID] = null;
+
+			// Detect done peeling
+			CompletedPeels++;
+			if ( CompletedPeels >= 4 )
+			{
+				CurrentState = State.Chopping;
+			}
+		}
+
+		peeldelay = Time.time + 0.02f;
+	}
+
 	public void FirstGrabbed()
 	{
-		Spawned = true;
-		Head.GetComponent<Collider>().enabled = false;
-		GetComponentInChildren<VRTK.Prefabs.Interactions.Interactables.Grab.Action.GrabInteractableFollowAction>().GrabOffset = VRTK.Prefabs.Interactions.Interactables.Grab.Action.GrabInteractableFollowAction.OffsetType.PrecisionPoint;
+		if ( CurrentState == State.Spawning )
+		{
+			CurrentState = State.Peeling;
+			Head.GetComponent<Collider>().enabled = false;
+			GetComponentInChildren<VRTK.Prefabs.Interactions.Interactables.Grab.Action.GrabInteractableFollowAction>().GrabOffset = VRTK.Prefabs.Interactions.Interactables.Grab.Action.GrabInteractableFollowAction.OffsetType.PrecisionPoint;
+		}
 	}
 }
