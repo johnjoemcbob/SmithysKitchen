@@ -37,34 +37,8 @@ public class Mould : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionEnter( Collision collision )
-	{
-		// Blob based collision
-		if ( collision.collider.tag == "Water" )
-		{
-			if ( GetComponentInParent<MCBlob>() != null )
-			{
-				GetComponentInParent<MCBlob>().Remove( collision.collider as SphereCollider );
-			}
-			Destroy( collision.rigidbody.gameObject );
-
-			AddLiquidLevel( 0.1f );
-		}
-	}
-
 	private void OnTriggerEnter( Collider other )
 	{
-		// Blob based collision
-		if ( other.tag == "Water" )
-		{
-			if ( GetComponentInParent<MCBlob>() != null )
-			{
-				GetComponentInParent<MCBlob>().Remove( other as SphereCollider );
-			}
-			Destroy( other.attachedRigidbody.gameObject );
-
-			AddLiquidLevel( 0.1f );
-		}
 		// Bowl based collision
 		if ( other.tag == "Container" && other.transform.up.y <= 0.5f )
 		{

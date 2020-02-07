@@ -101,27 +101,10 @@ public class MCBlob : MonoBehaviour
 	private List<SphereCollider> Blobs = new List<SphereCollider>();
 	[SerializeField] public SphereCollider[] BlobObjectsLocations;
 
-	public int NumberOfSpheres = 5;
-	public float Scale = 1;
-	public float HorizontalOff = 1;
-	public GameObject PrefabSphere;
 
     //Unity and Sample Specific
     void Start()
     {
-		foreach ( Transform child in transform )
-		{
-			DestroyImmediate( child.gameObject );
-		}
-		BlobObjectsLocations = new SphereCollider[NumberOfSpheres];
-		for ( int s = 0; s < NumberOfSpheres; s++ )
-		{
-			GameObject sphere = Instantiate( PrefabSphere, transform );
-			sphere.transform.localPosition = new Vector3( Random.Range( -HorizontalOff, HorizontalOff ), s * Scale / 10, Random.Range( -HorizontalOff, HorizontalOff ) );
-			sphere.transform.localScale = Vector3.one * Scale;
-			BlobObjectsLocations[s] = sphere.GetComponent<SphereCollider>();
-		}
-
 		if (BlobObjectsLocations.Length == 0)
         {
             BlobObjectsLocations = GetComponentsInChildren<SphereCollider>();
@@ -129,26 +112,6 @@ public class MCBlob : MonoBehaviour
         UpdateBlobs();
     }
 	
-	public void Add( Vector3 pos )
-	{
-		GameObject sphere = Instantiate( PrefabSphere, transform );
-		//sphere.transform.localPosition = new Vector3( Random.Range( -HorizontalOff, HorizontalOff ), Scale, Random.Range( -HorizontalOff, HorizontalOff ) );
-		sphere.transform.position = pos;
-		sphere.transform.localScale = Vector3.one * Scale;
-		Blobs.Add( sphere.GetComponent<SphereCollider>() );
-
-		BlobObjectsLocations = Blobs.ToArray();
-		UpdateBlobs();
-	}
-
-	public void Remove( SphereCollider blob )
-	{
-		Blobs.Remove( blob );
-
-		BlobObjectsLocations = Blobs.ToArray();
-		UpdateBlobs();
-	}
-
     void UpdateBlobs()
     {
         if (blobs == null || blobs.Length != BlobObjectsLocations.Length)
