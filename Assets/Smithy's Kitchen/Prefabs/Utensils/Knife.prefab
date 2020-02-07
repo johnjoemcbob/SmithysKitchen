@@ -312,6 +312,7 @@ GameObject:
   - component: {fileID: 687940296378692933}
   - component: {fileID: 3020063770123626676}
   - component: {fileID: 6335371713497661723}
+  - component: {fileID: 5585544386475473195}
   m_Layer: 9
   m_Name: Knife
   m_TagString: Utensil
@@ -471,6 +472,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Velocity: {x: 0, y: 0, z: 0}
+--- !u!114 &5585544386475473195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020063770123626677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f3e8f77406077479638f0cc9afb38c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollideDrag: 10
+  LerpSpeed: 5
 --- !u!1 &3059104490284241197
 GameObject:
   m_ObjectHideFlags: 0

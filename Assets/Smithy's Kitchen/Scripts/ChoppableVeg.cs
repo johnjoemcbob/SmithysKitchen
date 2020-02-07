@@ -21,7 +21,9 @@ public class ChoppableVeg : MonoBehaviour
 	private float[] PeelProgress = new float[] { 0, 0, 0, 0 };
 	private int CompletedPeels = 0;
 
-	// TODO: Would be better as states
+	private bool Grabbed = false;
+	List<GameObject> DestroyLater = new List<GameObject>();
+
 	public enum State
 	{
 		Spawning,
@@ -229,11 +231,10 @@ public class ChoppableVeg : MonoBehaviour
 		// If progress > 1 then pop off
 		if ( PeelProgress[peelID] >= 1 )
 		{
-			Peels[peelID].SetParent( null );
-			GameObject grab = SmithysKitchen.CreateGrabbable( Peels[peelID].gameObject );
+			GameObject grab = Disconnect( Peels[peelID] );
 			var sound = grab.AddComponent<PhysicsSound>();
 			sound.SelfType = PhysicsSound.Type.Organic;
-			grab.GetComponentInChildren<Rigidbody>().AddExplosionForce( 10000, transform.position, 10 );
+			grab.GetComponentInChildren<Rigidbody>().AddExplosionForce( 10000, transform.position, 10, 5 );
 			Destroy( grab, 5 );
 
 			Peels[peelID] = null;
@@ -257,5 +258,64 @@ public class ChoppableVeg : MonoBehaviour
 			Head.GetComponent<Collider>().enabled = false;
 			GetComponentInChildren<VRTK.Prefabs.Interactions.Interactables.Grab.Action.GrabInteractableFollowAction>().GrabOffset = VRTK.Prefabs.Interactions.Interactables.Grab.Action.GrabInteractableFollowAction.OffsetType.PrecisionPoint;
 		}
+		OnGrabbed();
+	}
+
+	public void OnGrabbed()
+	{
+		Grabbed = true;
+	}
+
+	public void OnUnGrabbed()
+	{
+		Grabbed = false;
+		DestroyQueue();
+	}
+
+	private GameObject Disconnect( Transform trans )
+	{
+		if ( Grabbed )
+		{
+			Debug.Log( "Grabbed! will duplicate..." );
+			return DisconnectWhileGrabbed( trans );
+		}
+		else
+		{
+			Debug.Log( "Not Grabbed! as normal..." );
+			trans.SetParent( null );
+			return SmithysKitchen.CreateGrabbable( trans.gameObject );
+		}
+	}
+
+	private GameObject DisconnectWhileGrabbed( Transform trans )
+	{
+		// Duplicate the real one
+		GameObject dup = Instantiate( trans.gameObject );
+
+		// Unparent
+		dup.transform.parent = null;
+		dup.transform.position = trans.position;
+		dup.transform.rotation = trans.rotation;
+
+		// Add to destroy later
+		DestroyLater.Add( trans.gameObject );
+
+		// Remove visuals
+		foreach ( var render in trans.GetComponentsInChildren<Renderer>() )
+		{
+			render.enabled = false;
+		}
+
+		// Return the duplicate
+		return SmithysKitchen.CreateGrabbable( dup );
+	}
+
+	private void DestroyQueue()
+	{
+		foreach ( var destroy in DestroyLater )
+		{
+			Destroy( destroy );
+		}
+		DestroyLater.Clear();
 	}
 }

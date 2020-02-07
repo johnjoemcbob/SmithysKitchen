@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 6654424252432909893}
   - component: {fileID: 8773331891734304695}
   - component: {fileID: 1080138623}
+  - component: {fileID: 8906710490492017407}
   m_Layer: 0
   m_Name: SwordBlank
   m_TagString: Untagged
@@ -205,6 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpeedRequired: 0.9
   SegmentRotations: []
+  Mould: {fileID: 0}
 --- !u!82 &6654424252432909893
 AudioSource:
   m_ObjectHideFlags: 0
@@ -325,6 +327,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2eadade889d7a4888705d348d796fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8906710490492017407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682574569258989860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f3e8f77406077479638f0cc9afb38c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollideDrag: 10
+  LerpSpeed: 5
 --- !u!1 &1801998265520046599
 GameObject:
   m_ObjectHideFlags: 0
