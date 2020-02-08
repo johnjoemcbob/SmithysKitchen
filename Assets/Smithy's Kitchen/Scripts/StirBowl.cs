@@ -11,8 +11,9 @@ public class StirBowl : MonoBehaviour
 	[Header( "References" )]
 	public Transform[] QuadrantArrows;
 	public Transform LiquidLevel;
+	public Transform IngredientsParent;
 
-	List<Collider> PossibleIngredients = new List<Collider>();
+	List<Transform> PossibleIngredients = new List<Transform>();
 
 	private Vector2 LiquidLevels = new Vector2( 0.072f, 0.211f );
 	private Vector2 LiquidScales = new Vector2( 0.85f, 1.05f );
@@ -31,6 +32,11 @@ public class StirBowl : MonoBehaviour
 		//toadd.Add( transform.position + new Vector3( 0, 0.4f ) );
 		//toadd.Add( transform.position + new Vector3( 0, 0.5f ) );
 		//toadd.Add( transform.position + new Vector3( 0, 0.6f ) );
+
+		foreach ( var mesh in IngredientsParent.GetComponentsInChildren<MeshRenderer>() )
+		{
+			mesh.enabled = false;
+		}
 	}
 
 	List<Vector3> toadd = new List<Vector3>();
@@ -122,18 +128,15 @@ public class StirBowl : MonoBehaviour
 
 		// Reduce any vegetables inside
 		// And convert to liquid
-		foreach ( var ingredient in PossibleIngredients )
+		//foreach ( var ingredient in PossibleIngredients )
 		{
-			if ( ingredient != null )
+			if ( PossibleIngredients.Count > 0 )
 			{
 				whiskcount++;
 
-				ingredient.attachedRigidbody.transform.localScale -= Vector3.one * 0.4f;
-				if ( ingredient.attachedRigidbody.transform.localScale.x <= 0 )
-				{
-					Destroy( ingredient.attachedRigidbody.gameObject );
-					//toadd.Add( ingredient.transform.position + new Vector3( 0, 0.1f, 0 ) );
-				}
+				// Find last ingredient
+				PossibleIngredients[PossibleIngredients.Count - 1].GetComponent<MeshRenderer>().enabled = false;
+				PossibleIngredients.RemoveAt( PossibleIngredients.Count - 1 );
 			}
 		}
 
@@ -165,14 +168,51 @@ public class StirBowl : MonoBehaviour
 	public void TrackIngredient( Collider other, bool track )
 	{
 		//Debug.Log( "Track; " + other + " " + track );
-		if ( track && !PossibleIngredients.Contains( other ) )
+		if ( track )
 		{
-			PossibleIngredients.Add( other );
+			// Find any free spots to add to
+			Transform parent = null;
+			foreach ( Transform ingredient in IngredientsParent )
+			{
+				if ( !ingredient.GetComponent<MeshRenderer>().enabled )
+				{
+					parent = ingredient;
+					break;
+				}
+			}
+
+			// If free spot then add
+			if ( parent != null )
+			{
+				// Get only visual
+				Transform oldroot = other.attachedRigidbody.transform;
+				//Transform visual = oldroot.transform.Find( "Meshes" );
+				//foreach ( var collider in visual.GetComponentsInChildren<Collider>() )
+				//{
+				//	collider.enabled = false;
+				//}
+
+				//// Move ingredient to be a child of the bowl
+				//visual.SetParent( parent );
+				//visual.localPosition = Vector3.zero;
+				//visual.localEulerAngles = Vector3.zero;
+				parent.GetComponent<MeshRenderer>().material.color = other.GetComponent<MeshRenderer>().material.color;
+				parent.GetComponent<MeshRenderer>().enabled = true;
+
+				// Remove other logics (just model)
+				Destroy( oldroot.gameObject );
+
+				// Play rising pitch sound
+				IngredientsParent.GetComponent<AudioSource>().pitch = Mathf.Lerp( 1, 2, parent.GetSiblingIndex() / IngredientsParent.childCount );
+				IngredientsParent.GetComponent<AudioSource>().Play();
+
+				PossibleIngredients.Add( parent );
+			}
 		}
-		else if ( !track && PossibleIngredients.Contains( other ) )
-		{
-			PossibleIngredients.Remove( other );
-		}
+		//else if ( !track && PossibleIngredients.Contains( other ) )
+		//{
+		//	PossibleIngredients.Remove( other );
+		//}
 	}
 
 	public bool PourOut()

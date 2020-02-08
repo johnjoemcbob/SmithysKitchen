@@ -45,19 +45,31 @@ public class SwordBlank : MonoBehaviour
 	{
 		if ( other.tag == "Hammer" && CanStraighten( other ) )
 		{
-			Transform closest = SegmentRotations[0];
+			int closest = -1;
 			float maxdist = -1;
+			int index = 0;
 			foreach ( var seg in SegmentRotations )
 			{
 				float dist = Vector3.Distance( seg.position, other.transform.position );
 				if ( maxdist == -1 || dist < maxdist )
 				{
-					closest = seg;
+					closest = index;
 					maxdist = dist;
 				}
+				index++;
 			}
 
-			closest.parent.localEulerAngles = Vector3.zero;
+			// Quick fix; hammer closest THREE segments
+			if ( closest - 1 >= 0 )
+			{
+				SegmentRotations[closest].parent.localEulerAngles = Vector3.zero;
+			}
+			SegmentRotations[closest].parent.localEulerAngles = Vector3.zero;
+			if ( closest + 1 <= SegmentRotations.Length - 1 )
+			{
+				SegmentRotations[closest].parent.localEulerAngles = Vector3.zero;
+			}
+
 			GetComponent<AudioSource>().Play();
 			GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.2f );
 			SmithysKitchen.EmitParticleImpact( other.transform.position );
@@ -97,9 +109,14 @@ public class SwordBlank : MonoBehaviour
 
 	private void Randomise()
 	{
+		int index = 0;
 		foreach ( var seg in SegmentRotations )
 		{
-			seg.localEulerAngles = new Vector3( Random.Range( -20, 20.0f ), 0, 0 );
+			if ( index != 0 )
+			{
+				seg.localEulerAngles = new Vector3( Random.Range( -10, 10.0f ), 0, 0 );
+			}
+			index++;
 		}
 	}
 }

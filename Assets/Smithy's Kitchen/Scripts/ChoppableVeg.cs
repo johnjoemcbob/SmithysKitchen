@@ -29,6 +29,7 @@ public class ChoppableVeg : MonoBehaviour
 		Spawning,
 		Peeling,
 		Chopping,
+		Dead,
 	}
 	private State CurrentState = State.Spawning;
 
@@ -168,14 +169,13 @@ public class ChoppableVeg : MonoBehaviour
 
 		if ( nextchop >= Segments.Length - 1 )
 		{
-			Head.GetComponentInParent<Rigidbody>().isKinematic = false;
+			//Head.GetComponentInParent<Rigidbody>().isKinematic = false;
+			CurrentState = State.Dead;
 		}
 		if ( nextchop >= Segments.Length ) return;
 
-		Segments[nextchop].SetParent( null );
-		Segments[nextchop].tag = "Ingredient";
-		//Segments[nextchop].gameObject.AddComponent<Rigidbody>();
-		GameObject grab = SmithysKitchen.CreateGrabbable( Segments[nextchop].gameObject );
+		GameObject grab = Disconnect( Segments[nextchop] );
+		grab.tag = "Ingredient";
 		var sound = grab.AddComponent<PhysicsSound>();
 		sound.SelfType = PhysicsSound.Type.Organic;
 
@@ -234,6 +234,7 @@ public class ChoppableVeg : MonoBehaviour
 			GameObject grab = Disconnect( Peels[peelID] );
 			var sound = grab.AddComponent<PhysicsSound>();
 			sound.SelfType = PhysicsSound.Type.Organic;
+			grab.GetComponentInChildren<Collider>().isTrigger = false;
 			grab.GetComponentInChildren<Rigidbody>().AddExplosionForce( 10000, transform.position, 10, 5 );
 			Destroy( grab, 5 );
 
