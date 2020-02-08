@@ -21680,25 +21680,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Help: This is for objects
---- !u!1 &952675407 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4037243485252857310, guid: c055aaa0c72ed40498d3138f91e7dfec,
-    type: 3}
-  m_PrefabInstance: {fileID: 9220465203460812621}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &952675408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 952675407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 843201a3bd17436428471ac577e4f1b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Help: This is for objects
 --- !u!1 &954035005
 GameObject:
   m_ObjectHideFlags: 0
@@ -40932,7 +40913,7 @@ PrefabInstance:
     - target: {fileID: 5934293921031939510, guid: b153a694f69a4714581ef99c865e532f,
         type: 3}
       propertyPath: m_Name
-      value: CombineZone
+      value: Sword CombineZone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b153a694f69a4714581ef99c865e532f, type: 3}

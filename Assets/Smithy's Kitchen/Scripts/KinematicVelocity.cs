@@ -7,16 +7,21 @@ public class KinematicVelocity : MonoBehaviour
 {
 	[HideInInspector]
 	public Vector3 Velocity;
+	[HideInInspector]
+	public Vector3 AngularVelocity;
 
 	private Vector3 oldpos;
+	private Vector3 oldeuler;
 
 	void Start()
 	{
 		oldpos = transform.position;
+		oldeuler = transform.eulerAngles;
 	}
 
 	void Update()
 	{
+		// Pos
 		Vector3 newpos = transform.position;
 		var media =  (newpos - oldpos);
 
@@ -24,5 +29,14 @@ public class KinematicVelocity : MonoBehaviour
 
 		oldpos = newpos;
 		newpos = transform.position;
+
+		// Ang
+		Vector3 neweuler = transform.eulerAngles;
+		media =  (neweuler - oldeuler);
+
+		AngularVelocity = media / Time.deltaTime;
+
+		oldeuler = neweuler;
+		neweuler = transform.eulerAngles;
 	}
 }

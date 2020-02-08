@@ -6,12 +6,17 @@ public class StirBowl : MonoBehaviour
 {
 	[Header( "Parameters" )]
 	public float WhiskTime = 0.4f;
+	public float WhiskRequiredSpeed = 0.5f;
+	public float LiquidGlobSpeed = 5;
+	public float LiquidLevelSpeed = 5;
 	public int RequiredWhisks = 30;
 
 	[Header( "References" )]
 	public Transform[] QuadrantArrows;
 	public Transform LiquidLevel;
 	public Transform IngredientsParent;
+	public Transform LiquidParent;
+	public Transform WhiskLiquidGlob;
 
 	List<Transform> PossibleIngredients = new List<Transform>();
 
@@ -22,53 +27,24 @@ public class StirBowl : MonoBehaviour
 	private int dir = 0;
 	private float lastquadtime = -100;
 	private int whiskcount = 0;
+	private Vector3 LiquidWhiskGlobTarget;
 
 	private void Start()
 	{
-		//QuadEntered( 0 );
-		//toadd.Add( transform.position + new Vector3( 0, 0.1f ) );
-		//toadd.Add( transform.position + new Vector3( 0, 0.2f ) );
-		//toadd.Add( transform.position + new Vector3( 0, 0.3f ) );
-		//toadd.Add( transform.position + new Vector3( 0, 0.4f ) );
-		//toadd.Add( transform.position + new Vector3( 0, 0.5f ) );
-		//toadd.Add( transform.position + new Vector3( 0, 0.6f ) );
-
 		foreach ( var mesh in IngredientsParent.GetComponentsInChildren<MeshRenderer>() )
 		{
 			mesh.enabled = false;
 		}
 	}
 
-	List<Vector3> toadd = new List<Vector3>();
-	float nextadd = 0;
-	float betweenadd = 0.2f;
 	private void Update()
 	{
-		//if ( toadd.Count > 0 && nextadd <= Time.time )
-		//{
-		//	FindObjectOfType<MCBlob>().Add( toadd[0] );
-		//	toadd.RemoveAt( 0 );
-		//	nextadd = Time.time + betweenadd;
-		//}
+		// Lerp whisk glob pos
+		WhiskLiquidGlob.localPosition = Vector3.Lerp( WhiskLiquidGlob.localPosition, LiquidWhiskGlobTarget, Time.deltaTime * LiquidGlobSpeed );
+		WhiskLiquidGlob.localPosition += new Vector3( 0, -WhiskLiquidGlob.localPosition.y + 0.17f, 0 ); // todo, do better
 
-		//if ( Input.GetKeyDown( KeyCode.Alpha1 ) )
-		//{
-		//	int next = lastquad + 1;
-		//	if ( next >= QuadrantArrows.Length )
-		//	{
-		//		next = 0;
-		//	}
-		//	QuadEntered( next );
-		//}
-		//if ( Input.GetKeyDown( KeyCode.Alpha2 ) )
-		//{
-		//	int next = lastquad - 1;
-		//	if ( next < 0 )
-		//	{
-		//		next = QuadrantArrows.Length - 1;
-		//	}
-		//	QuadEntered( next );
-		//}
+		// Liquid level flat
+		//LiquidParent.rotation = Quaternion.Lerp( LiquidParent.rotation, Quaternion.Euler( Vector3.zero ), Time.deltaTime * LiquidLevelSpeed );
 	}
 
 	private void OnTriggerStay( Collider other )
@@ -88,9 +64,7 @@ public class StirBowl : MonoBehaviour
 
 	public void QuadEntered( Collider whisk, int quad )
 	{
-		//if ( whiskcount >= RequiredWhisks ) return;
-
-		if ( lastquad != quad && lastquadtime + WhiskTime <= Time.time )
+		if ( lastquad != quad && lastquadtime + WhiskTime <= Time.time && ( whisk.GetComponentInParent<KinematicVelocity>().Velocity.magnitude >= WhiskRequiredSpeed || whisk.GetComponentInParent<KinematicVelocity>().AngularVelocity.magnitude >= WhiskRequiredSpeed ) )
 		{
 			Whisk( whisk );
 
@@ -112,7 +86,6 @@ public class StirBowl : MonoBehaviour
 			}
 			for ( int arrow = 0; arrow < QuadrantArrows.Length; arrow++ )
 			{
-				//QuadrantArrows[arrow].gameObject.SetActive( arrow == next );
 				QuadrantArrows[arrow].localEulerAngles = new Vector3( 0, 0, 90 * ( arrow + 1 ) + ( ( dir == 1 ) ? 90 : 0 ) + ( arrow % 2 != 0 ? 180 : 0 ) );
 				QuadrantArrows[arrow].localScale = new Vector3( ( ( dir == 1 ) ? 0.5f : -0.5f ), 0.5f, 0.5f );
 			}
@@ -124,11 +97,8 @@ public class StirBowl : MonoBehaviour
 
 	private void Whisk( Collider whisk )
 	{
-		//if ( whiskcount >= RequiredWhisks ) return;
-
 		// Reduce any vegetables inside
 		// And convert to liquid
-		//foreach ( var ingredient in PossibleIngredients )
 		{
 			if ( PossibleIngredients.Count > 0 )
 			{
@@ -142,15 +112,14 @@ public class StirBowl : MonoBehaviour
 
 		UpdateLiquid();
 
-		SmithysKitchen.EmitParticleImpact( whisk.transform.position );
-		GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.5f );
-		GetComponent<AudioSource>().Play();
+		//SmithysKitchen.EmitParticleImpact( whisk.transform.position );
+		//GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.5f );
+		//GetComponent<AudioSource>().Play();
 
 		// Stir liquid
-		//foreach ( var blob in FindObjectOfType<MCBlob>().BlobObjectsLocations )
-		//{
-		//	blob.attachedRigidbody.AddForce( whisk.GetComponentInParent<KinematicVelocity>().Velocity * 100 );
-		//}
+		Vector3 target = transform.InverseTransformPoint( whisk.transform.position );
+		//target += new Vector3( 0, -WhiskLiquidGlob.localPosition.y + 0.17f, 0 ); // todo, do better
+		LiquidWhiskGlobTarget = target;
 
 		// Reduce liquid
 		//GetComponentInChildren<MCBlob>().isoLevel += 0.4f;
@@ -203,7 +172,7 @@ public class StirBowl : MonoBehaviour
 				Destroy( oldroot.gameObject );
 
 				// Play rising pitch sound
-				IngredientsParent.GetComponent<AudioSource>().pitch = Mathf.Lerp( 1, 2, parent.GetSiblingIndex() / IngredientsParent.childCount );
+				IngredientsParent.GetComponent<AudioSource>().pitch = Mathf.Lerp( 2, 3, parent.GetSiblingIndex() / IngredientsParent.childCount );
 				IngredientsParent.GetComponent<AudioSource>().Play();
 
 				PossibleIngredients.Add( parent );
