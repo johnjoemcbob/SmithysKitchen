@@ -42,6 +42,13 @@ public class FryableCubeScript : FryableScript
     }
 
     //----------------------------------------------------------------
+    public override void StartFry()
+    {
+        base.StartFry();
+        scaleDir = Vector3.zero;
+    }
+
+    //----------------------------------------------------------------
     public override void StopFry()
     {
         base.StopFry();
@@ -52,36 +59,36 @@ public class FryableCubeScript : FryableScript
     {
         base.Fry();
 
-
         scaleDir = cubeMesh.transform.localScale;
-        Vector3 upVector = transform.up;
 
-        Mathf.Abs(upVector.x);
-        Mathf.Abs(upVector.y);
-        Mathf.Abs(upVector.z);
+        float upResult = Vector3.Dot(Vector3.up, transform.up);
+        float downResult = Vector3.Dot(Vector3.up, -transform.up);
+        float forwardResult = Vector3.Dot(Vector3.up, transform.forward);
+        float backResult = Vector3.Dot(Vector3.up, -transform.forward);
+        float rightResult = Vector3.Dot(Vector3.up, transform.right);
+        float leftResult = Vector3.Dot(Vector3.up, -transform.right);
 
-        float upDir = Mathf.Max(upVector.x, upVector.y, upVector.z);
-
-        if (upDir == upVector.x)
+        if ((upResult >= 0.9f) || (downResult >= 0.9f))
         {
-            scaleDir.x = 0.25f * minFrySize;
-            scaleDir.y = 1.0f * maxFrySize;
-            scaleDir.z = 1.0f * maxFrySize;
-        }
-        else if (upDir == upVector.y)
-        {
+            Debug.Log("updir is Y");
             scaleDir.x = 1.0f * maxFrySize;
             scaleDir.y = 0.25f * minFrySize;
             scaleDir.z = 1.0f * maxFrySize;
         }
-        else if (upDir == upVector.z)
+        else if ((forwardResult >= 0.9f) || (backResult >= 0.9f))
         {
+            Debug.Log("updir is Z");
             scaleDir.x = 1.0f * maxFrySize;
             scaleDir.y = 1.0f * maxFrySize;
             scaleDir.z = 0.25f * minFrySize;
         }
-
-        //Debug.Log(transform.up + "   " + scaleDir.ToString("F4"));
+        else if ((rightResult >= 0.9f) || (leftResult >= 0.9f))
+        {
+            Debug.Log("updir is X");
+            scaleDir.x = 0.25f * minFrySize;
+            scaleDir.y = 1.0f * maxFrySize;
+            scaleDir.z = 1.0f * maxFrySize;
+        }
 
         cubeMesh.transform.localScale = Vector3.Lerp(cubeMesh.transform.localScale, scaleDir, 0.001f);
     }
