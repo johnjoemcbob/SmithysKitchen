@@ -26,7 +26,9 @@ public class RespawnInsideVan : MonoBehaviour
 	{
 		foreach ( var leave in Leaving )
 		{
-			if ( leave.Value + LeaveTime <= Time.time )
+			// TODO cleanup list better
+			// TODO issues caused by liquid pour prefab spawned under Respawnable bowl, then removed?
+			if ( leave.Value + LeaveTime <= Time.time && leave.Key != null )
 			{
 				Rigidbody body = leave.Key.GetComponent<Rigidbody>();
 				body.transform.position = Tracked[leave.Key].Pos;
