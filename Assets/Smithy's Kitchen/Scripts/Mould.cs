@@ -40,13 +40,9 @@ public class Mould : MonoBehaviour
 	private void OnTriggerEnter( Collider other )
 	{
 		// Bowl based collision
-		if ( other.tag == "Container" && other.transform.up.y <= 0.5f )
+		if ( other.tag == "Container" )
 		{
-			bool added = other.attachedRigidbody.GetComponentInParent<StirBowl>().PourOut();
-			if ( added )
-			{
-				AddLiquidLevel( 0.1f );
-			}
+			other.attachedRigidbody.GetComponentInParent<StirBowl>().Mould = this;
 		}
 	}
 
@@ -63,6 +59,15 @@ public class Mould : MonoBehaviour
 					BakeSword();
 				}
 			}
+		}
+	}
+
+	private void OnTriggerExit( Collider other )
+	{
+		// Bowl based collision
+		if ( other.tag == "Container" )
+		{
+			other.attachedRigidbody.GetComponentInParent<StirBowl>().Mould = null;
 		}
 	}
 

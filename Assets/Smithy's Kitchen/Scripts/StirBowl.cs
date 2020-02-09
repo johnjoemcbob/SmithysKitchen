@@ -7,26 +7,33 @@ public class StirBowl : MonoBehaviour
 	[Header( "Parameters" )]
 	public float WhiskTime = 0.4f;
 	public float WhiskRequiredSpeed = 0.5f;
+	public float LerpSpeed = 5;
 	public float LiquidGlobSpeed = 5;
 	public float LiquidLevelSpeed = 5;
-	public int RequiredWhisks = 30;
+	public float LiquidCastMult = 0.75f;
+	public float LiquidLevelPerIngredient = 0.1f;
+	public Vector2 LiquidLevels = new Vector2( 0.05f, 0.17f );
+	public Vector2 LiquidScales = new Vector2( 1.36f, 1.25f );
 
 	[Header( "References" )]
 	public Transform[] QuadrantArrows;
-	public Transform LiquidLevel;
+	//public Transform LiquidLevel;
 	public Transform IngredientsParent;
 	public Transform LiquidParent;
 	public Transform WhiskLiquidGlob;
 
+	[Header( "Assets" )]
+	public GameObject LiquidPourPrefab;
+
+	[HideInInspector]
+	public Mould Mould;
+
 	List<Transform> PossibleIngredients = new List<Transform>();
 
-	private Vector2 LiquidLevels = new Vector2( 0.072f, 0.211f );
-	private Vector2 LiquidScales = new Vector2( 0.85f, 1.05f );
-
+	private float LiquidLevel = 0;
 	private int lastquad = -1;
 	private int dir = 0;
 	private float lastquadtime = -100;
-	private int whiskcount = 0;
 	private Vector3 LiquidWhiskGlobTarget;
 
 	private void Start()
@@ -39,12 +46,86 @@ public class StirBowl : MonoBehaviour
 
 	private void Update()
 	{
-		// Lerp whisk glob pos
+		// Lerp whisk glob
 		WhiskLiquidGlob.localPosition = Vector3.Lerp( WhiskLiquidGlob.localPosition, LiquidWhiskGlobTarget, Time.deltaTime * LiquidGlobSpeed );
-		WhiskLiquidGlob.localPosition += new Vector3( 0, -WhiskLiquidGlob.localPosition.y + 0.17f, 0 ); // todo, do better
+		WhiskLiquidGlob.localPosition += new Vector3( 0, -WhiskLiquidGlob.localPosition.y + 0.07f, 0 ); // todo, do better
+
+		// Lerp liquid level
+		LerpLiquid();
 
 		// Liquid level flat
-		//LiquidParent.rotation = Quaternion.Lerp( LiquidParent.rotation, Quaternion.Euler( Vector3.zero ), Time.deltaTime * LiquidLevelSpeed );
+		LiquidParent.rotation = Quaternion.Lerp( LiquidParent.rotation, Quaternion.Euler( Vector3.zero ), Time.deltaTime * LiquidLevelSpeed );
+
+		// Testing
+		if ( Input.GetKeyDown( KeyCode.KeypadPlus ) )
+		{
+			LiquidLevel += LiquidLevelPerIngredient;
+			LiquidLevel = Mathf.Min( LiquidLevel, 1 );
+		}
+		else if ( Input.GetKeyDown( KeyCode.KeypadMinus ) )
+		{
+			LiquidLevel -= LiquidLevelPerIngredient;
+			LiquidLevel = Mathf.Max( LiquidLevel, 0 );
+		}
+
+		// Pouring
+		UpdatePour();
+	}
+
+	// Can be recursive!
+	private void UpdatePour()
+	{
+		// Raycast for the liquid extents each frame
+		if ( LiquidLevel > 0 )
+		{
+			int off = 1;
+			Vector3[] dirs = new Vector3[]
+			{
+				new Vector3( 1, 0, 0 ), // North
+				new Vector3( 1, 0, 1 ), // North East
+				new Vector3( 0.1f, 0, 1 ), // East
+				new Vector3( -0.1f, 0, 1 ), // East
+				new Vector3( -1, 0, 1 ), // South East
+				new Vector3( -1, 0, 0 ), // South
+				new Vector3( -1, 0, -1 ), // South West
+				new Vector3( -0.1f, 0, -1 ), // West
+				new Vector3( 0.1f, 0, -1 ), // West
+				new Vector3( 1, 0, -1 ), // North West
+			};
+			for ( int sphere = 0; sphere < dirs.Length; sphere++ )
+			{
+				RaycastHit info;
+				// Don't collide with the liquid itself
+				int layerMask = 1 << LayerMask.NameToLayer( "Bowl" );
+				if ( Physics.Raycast( LiquidParent.position, dirs[sphere], out info, 10, layerMask ) )
+				{
+					LiquidParent.GetChild( sphere + off ).position = Vector3.Lerp( LiquidParent.position, info.point, LiquidCastMult );
+				}
+				else
+				{
+					Debug.Log( "pour!" );
+					// Pour out
+					GameObject pour = Instantiate( LiquidPourPrefab );
+					pour.transform.position = LiquidParent.GetChild( sphere + off ).position;
+					pour.transform.eulerAngles = new Vector3( 0, transform.eulerAngles.y, 0 );
+					Destroy( pour, 5 );
+
+					// TODO Detect if pouring into mould
+					if ( Mould != null )
+					{
+						Mould.AddLiquidLevel( LiquidLevelPerIngredient );
+					}
+
+					// Reduce liquid level
+					LiquidLevel -= LiquidLevelPerIngredient;
+
+					break;
+				}
+			}
+		}
+
+		// Hide liquid if none
+		LiquidParent.gameObject.SetActive( ( LiquidLevel > 0 ) );
 	}
 
 	private void OnTriggerStay( Collider other )
@@ -99,33 +180,29 @@ public class StirBowl : MonoBehaviour
 	{
 		// Reduce any vegetables inside
 		// And convert to liquid
+		if ( PossibleIngredients.Count > 0 )
 		{
-			if ( PossibleIngredients.Count > 0 )
-			{
-				whiskcount++;
+			LiquidLevel += LiquidLevelPerIngredient;
+			LiquidLevel = Mathf.Min( LiquidLevel, 1 );
 
-				// Find last ingredient
-				PossibleIngredients[PossibleIngredients.Count - 1].GetComponent<MeshRenderer>().enabled = false;
-				PossibleIngredients.RemoveAt( PossibleIngredients.Count - 1 );
-			}
+			// Find last ingredient
+			PossibleIngredients[PossibleIngredients.Count - 1].GetComponent<MeshRenderer>().enabled = false;
+			PossibleIngredients.RemoveAt( PossibleIngredients.Count - 1 );
 		}
 
-		UpdateLiquid();
-
+		// Effects
 		//SmithysKitchen.EmitParticleImpact( whisk.transform.position );
 		//GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.5f );
 		//GetComponent<AudioSource>().Play();
 
 		// Stir liquid
-		Vector3 target = transform.InverseTransformPoint( whisk.transform.position );
-		//target += new Vector3( 0, -WhiskLiquidGlob.localPosition.y + 0.17f, 0 ); // todo, do better
-		LiquidWhiskGlobTarget = target;
+		LiquidWhiskGlobTarget = transform.InverseTransformPoint( whisk.transform.position );
 
 		// Reduce liquid
 		//GetComponentInChildren<MCBlob>().isoLevel += 0.4f;
 
 		// Hide tutorial arrows
-		if ( whiskcount >= RequiredWhisks )
+		if ( LiquidLevel >= 1 )
 		{
 			for ( int arrow = 0; arrow < QuadrantArrows.Length; arrow++ )
 			{
@@ -136,7 +213,6 @@ public class StirBowl : MonoBehaviour
 
 	public void TrackIngredient( Collider other, bool track )
 	{
-		//Debug.Log( "Track; " + other + " " + track );
 		if ( track )
 		{
 			// Find any free spots to add to
@@ -153,22 +229,12 @@ public class StirBowl : MonoBehaviour
 			// If free spot then add
 			if ( parent != null )
 			{
-				// Get only visual
-				Transform oldroot = other.attachedRigidbody.transform;
-				//Transform visual = oldroot.transform.Find( "Meshes" );
-				//foreach ( var collider in visual.GetComponentsInChildren<Collider>() )
-				//{
-				//	collider.enabled = false;
-				//}
-
-				//// Move ingredient to be a child of the bowl
-				//visual.SetParent( parent );
-				//visual.localPosition = Vector3.zero;
-				//visual.localEulerAngles = Vector3.zero;
+				// Turn mesh renderer on for this "newly added" ingredient and colour correctly
 				parent.GetComponent<MeshRenderer>().material.color = other.GetComponent<MeshRenderer>().material.color;
 				parent.GetComponent<MeshRenderer>().enabled = true;
 
-				// Remove other logics (just model)
+				// Remove old grabbable objects
+				Transform oldroot = other.attachedRigidbody.transform;
 				Destroy( oldroot.gameObject );
 
 				// Play rising pitch sound
@@ -178,32 +244,26 @@ public class StirBowl : MonoBehaviour
 				PossibleIngredients.Add( parent );
 			}
 		}
-		//else if ( !track && PossibleIngredients.Contains( other ) )
-		//{
-		//	PossibleIngredients.Remove( other );
-		//}
 	}
 
 	public bool PourOut()
 	{
-		if ( whiskcount > 0 )
-		{
-			whiskcount -= Mathf.Min( 1, RequiredWhisks / 10 );
-			UpdateLiquid();
+		//if ( LiquidLevel > 0 )
+		//{
+		//	LiquidLevel -= LiquidLevelPerIngredient;
+		//	UpdateLiquid();
 
-			GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.5f );
-			GetComponent<AudioSource>().Play();
+		//	GetComponent<AudioSource>().pitch = Random.Range( 0.8f, 1.5f );
+		//	GetComponent<AudioSource>().Play();
 
-			return true;
-		}
+		//	return true;
+		//}
 		return false;
 	}
 
-	private void UpdateLiquid()
+	private void LerpLiquid()
 	{
-		whiskcount = Mathf.Max( whiskcount, 0 );
-		whiskcount = Mathf.Min( whiskcount, RequiredWhisks );
-		float progress = (float) whiskcount / RequiredWhisks;
+		float progress = LiquidLevel;
 		float height = Mathf.Lerp( LiquidLevels.x, LiquidLevels.y, progress );
 		float scale = Mathf.Lerp( LiquidScales.x, LiquidScales.y, progress );
 		if ( progress == 0 )
@@ -212,7 +272,12 @@ public class StirBowl : MonoBehaviour
 			scale = 0;
 		}
 
-		LiquidLevel.localPosition = new Vector3( 0, height, 0 );
-		LiquidLevel.localScale = Vector3.one * scale;
+		// Start at least at the minimum so doesn't pour/leak out of base
+		LiquidParent.localPosition = new Vector3( 0, Mathf.Max( LiquidLevels.x, LiquidParent.localPosition.y ), 0 );
+
+		// Lerp
+		//LiquidParent.localPosition = new Vector3( 0, height, 0 ); // Lerping causes issues since the pour point isn't updated in time
+		LiquidParent.localPosition = Vector3.Lerp( LiquidParent.localPosition, new Vector3( 0, height, 0 ), Time.deltaTime * LerpSpeed );
+		LiquidParent.GetComponent<MCBlob>().isoLevel = Mathf.Lerp( LiquidParent.GetComponent<MCBlob>().isoLevel, scale, Time.deltaTime * LerpSpeed );
 	}
 }
