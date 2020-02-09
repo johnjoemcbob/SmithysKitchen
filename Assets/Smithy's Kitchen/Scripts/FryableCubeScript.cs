@@ -70,21 +70,21 @@ public class FryableCubeScript : FryableScript
 
         if ((upResult >= 0.9f) || (downResult >= 0.9f))
         {
-            Debug.Log("updir is Y");
+            //Debug.Log("updir is Y");
             scaleDir.x = 1.0f * maxFrySize;
             scaleDir.y = 0.25f * minFrySize;
             scaleDir.z = 1.0f * maxFrySize;
         }
         else if ((forwardResult >= 0.9f) || (backResult >= 0.9f))
         {
-            Debug.Log("updir is Z");
+            //Debug.Log("updir is Z");
             scaleDir.x = 1.0f * maxFrySize;
             scaleDir.y = 1.0f * maxFrySize;
             scaleDir.z = 0.25f * minFrySize;
         }
         else if ((rightResult >= 0.9f) || (leftResult >= 0.9f))
         {
-            Debug.Log("updir is X");
+            //Debug.Log("updir is X");
             scaleDir.x = 0.25f * minFrySize;
             scaleDir.y = 1.0f * maxFrySize;
             scaleDir.z = 1.0f * maxFrySize;
