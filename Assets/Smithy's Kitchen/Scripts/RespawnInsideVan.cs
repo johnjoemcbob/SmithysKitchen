@@ -38,6 +38,12 @@ public class RespawnInsideVan : MonoBehaviour
 				body.velocity = Vector3.zero;
 				body.angularVelocity = Vector3.zero;
 				body.Sleep();
+
+				// Play sound
+				AudioSource source = GetComponentInChildren<AudioSource>();
+				source.pitch = Random.Range( 0.8f, 1.4f );
+				source.Play();
+				source.transform.position = body.transform.position;
 			}
 		}
 	}

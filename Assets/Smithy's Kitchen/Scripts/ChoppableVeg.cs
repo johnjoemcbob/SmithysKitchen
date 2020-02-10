@@ -175,7 +175,10 @@ public class ChoppableVeg : MonoBehaviour
 		if ( nextchop >= Segments.Length ) return;
 
 		GameObject grab = Disconnect( Segments[nextchop] );
-		grab.tag = "Ingredient";
+		if ( nextchop != 0 )// && nextchop != Segments.Length - 1 )
+		{
+			grab.GetComponentInChildren<Collider>().tag = "Ingredient";
+		}
 		var sound = grab.AddComponent<PhysicsSound>();
 		sound.SelfType = PhysicsSound.Type.Organic;
 
@@ -277,12 +280,10 @@ public class ChoppableVeg : MonoBehaviour
 	{
 		if ( Grabbed )
 		{
-			Debug.Log( "Grabbed! will duplicate..." );
 			return DisconnectWhileGrabbed( trans );
 		}
 		else
 		{
-			Debug.Log( "Not Grabbed! as normal..." );
 			trans.SetParent( null );
 			return SmithysKitchen.CreateGrabbable( trans.gameObject );
 		}
