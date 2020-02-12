@@ -348,11 +348,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WhiskTime: 0.1
   WhiskRequiredSpeed: 0.5
+  LerpSpeed: 5
   LiquidGlobSpeed: 10
   LiquidLevelSpeed: 5
   LiquidCastMult: 0.75
   LiquidLevelPerIngredient: 0.1
-  LiquidLevels: {x: 0.05, y: 0.17}
+  LiquidLevels: {x: 0.05, y: 0.15}
   LiquidScales: {x: 1.7, y: 1.25}
   QuadrantArrows:
   - {fileID: 1105860176763209349}
@@ -362,6 +363,8 @@ MonoBehaviour:
   IngredientsParent: {fileID: 3799654646731379652}
   LiquidParent: {fileID: 7540026255441746112}
   WhiskLiquidGlob: {fileID: 4582887093196554251}
+  LiquidPourPrefab: {fileID: 0}
+  Mould: {fileID: 0}
 --- !u!82 &928159676
 AudioSource:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class StirBowl : MonoBehaviour
 	public float WhiskTime = 0.4f;
 	public float WhiskRequiredSpeed = 0.5f;
 	public float LerpSpeed = 5;
+	public float LerpAddSpeed = 5;
 	public float LiquidGlobSpeed = 5;
 	public float LiquidLevelSpeed = 5;
 	public float LiquidCastMult = 0.75f;
@@ -46,9 +47,20 @@ public class StirBowl : MonoBehaviour
 
 	private void Update()
 	{
+		// Lerp ingredient adding
+		// TODO could be better and not getcomponent every frame
+		foreach ( Transform ingredient in IngredientsParent )
+		{
+			if ( ingredient.GetComponent<MeshRenderer>().enabled )
+			{
+				ingredient.localScale = Vector3.Lerp( ingredient.localScale, new Vector3( 0.1f, 0.05f, 0.1f ), Time.deltaTime * LerpAddSpeed );
+			}
+		}
+
 		// Lerp whisk glob
+		LiquidWhiskGlobTarget = new Vector3( LiquidWhiskGlobTarget.x, Mathf.Clamp( LiquidWhiskGlobTarget.y, 0.06f, 0.07f ), LiquidWhiskGlobTarget.z );
 		WhiskLiquidGlob.localPosition = Vector3.Lerp( WhiskLiquidGlob.localPosition, LiquidWhiskGlobTarget, Time.deltaTime * LiquidGlobSpeed );
-		WhiskLiquidGlob.localPosition += new Vector3( 0, -WhiskLiquidGlob.localPosition.y + 0.07f, 0 ); // todo, do better
+		//WhiskLiquidGlob.localPosition += new Vector3( 0, -LiquidWhiskGlobTarget.y + 0.07f, 0 ); // todo, do better
 
 		// Lerp liquid level
 		LerpLiquid();
@@ -72,7 +84,6 @@ public class StirBowl : MonoBehaviour
 		UpdatePour();
 	}
 
-	// Can be recursive!
 	private void UpdatePour()
 	{
 		// Raycast for the liquid extents each frame
@@ -105,10 +116,10 @@ public class StirBowl : MonoBehaviour
 				{
 					Debug.Log( "pour!" );
 					// Pour out
-					GameObject pour = Instantiate( LiquidPourPrefab );
-					pour.transform.position = LiquidParent.GetChild( sphere + off ).position;
-					pour.transform.eulerAngles = new Vector3( 0, transform.eulerAngles.y, 0 );
-					Destroy( pour, 5 );
+					//GameObject pour = Instantiate( LiquidPourPrefab );
+					//pour.transform.position = LiquidParent.GetChild( sphere + off ).position;
+					//pour.transform.eulerAngles = new Vector3( 0, transform.eulerAngles.y, 0 );
+					//Destroy( pour, 5 );
 
 					// TODO Detect if pouring into mould
 					if ( Mould != null )
@@ -232,6 +243,7 @@ public class StirBowl : MonoBehaviour
 				// Turn mesh renderer on for this "newly added" ingredient and colour correctly
 				parent.GetComponent<MeshRenderer>().material.color = other.GetComponent<MeshRenderer>().material.color;
 				parent.GetComponent<MeshRenderer>().enabled = true;
+				parent.localScale = Vector3.zero;
 
 				// Remove old grabbable objects
 				Transform oldroot = other.attachedRigidbody.transform;
