@@ -5,7 +5,6 @@ using UnityEngine;
 public class StoveButtonScript : MonoBehaviour
 {
     public GameObject burner;
-    public StoveBurnerScript stoveBurnerScript;
     bool isBeingTouched = false;
     bool isOn = false;
 
@@ -15,11 +14,6 @@ public class StoveButtonScript : MonoBehaviour
         if (burner != null)
         {
             burner.SetActive(false);
-        }
-
-        if (stoveBurnerScript != null)
-        {
-            stoveBurnerScript.SetHeated(false);
         }
     }
 
@@ -41,10 +35,6 @@ public class StoveButtonScript : MonoBehaviour
         if (burner != null)
         {
             burner.SetActive(isOn);
-        }
-        if (stoveBurnerScript != null)
-        {
-            stoveBurnerScript.SetHeated(isOn);
         }
     }
 

@@ -7,7 +7,10 @@ public class FryZoneScript : MonoBehaviour
     List<FryableScript> fryableObjects;
     AudioSource audioSource;
 
+    public GameObject burnerObj;
+
     bool isHeated = false;
+    bool isSnapped = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,14 @@ public class FryZoneScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isSnapped && (burnerObj != null))
+        {
+            if (isHeated != burnerObj.activeSelf)
+            {
+                SetHeated(burnerObj.activeSelf);
+            }
+        }
+
         //Fry if heated
         if (isHeated)
         {
@@ -30,6 +41,22 @@ public class FryZoneScript : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void OnSnapped()
+    {
+        //Check if the burner is on
+        if (burnerObj != null)
+        {
+            SetHeated(burnerObj.activeSelf);
+        }
+        isSnapped = true;
+    }
+
+    public void OnUnsnapped()
+    {
+        SetHeated(false);
+        isSnapped = false;
     }
 
     public void SetHeated(bool val)

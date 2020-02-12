@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9098a87f0414c6145b171b89585fc1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  burnerObj: {fileID: 0}
 --- !u!82 &5573983133092881463
 AudioSource:
   m_ObjectHideFlags: 0
@@ -783,8 +784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f3e8f77406077479638f0cc9afb38c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollideDrag: 10
-  LerpSpeed: 5
 --- !u!1 &8683712371317096298
 GameObject:
   m_ObjectHideFlags: 0
