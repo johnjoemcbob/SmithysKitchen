@@ -349,6 +349,7 @@ MonoBehaviour:
   WhiskTime: 0.1
   WhiskRequiredSpeed: 0.5
   LerpSpeed: 5
+  LerpAddSpeed: 5
   LiquidGlobSpeed: 10
   LiquidLevelSpeed: 5
   LiquidCastMult: 0.75
@@ -6072,6 +6073,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e9fe3004b1773b2438c3b585c8f7a4cc, type: 2}
+    - target: {fileID: 23827976485586250, guid: 0510f7a2eb7a8034597914697ffc7122,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114011533599149376, guid: 0510f7a2eb7a8034597914697ffc7122,
         type: 3}
       propertyPath: BlobObjectsLocations.Array.size

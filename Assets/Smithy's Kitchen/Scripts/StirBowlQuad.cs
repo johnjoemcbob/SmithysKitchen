@@ -30,5 +30,9 @@ public class StirBowlQuad : MonoBehaviour
 		{
 			GetComponentInParent<StirBowl>().TrackIngredient( other, false );
 		}
+		if ( other.tag == "Whisk" )
+		{
+			GetComponentInParent<StirBowl>().QuadExited( other, transform.GetSiblingIndex() );
+		}
 	}
 }

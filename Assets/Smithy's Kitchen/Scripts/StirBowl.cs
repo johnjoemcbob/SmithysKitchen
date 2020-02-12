@@ -58,7 +58,7 @@ public class StirBowl : MonoBehaviour
 		}
 
 		// Lerp whisk glob
-		LiquidWhiskGlobTarget = new Vector3( LiquidWhiskGlobTarget.x, Mathf.Clamp( LiquidWhiskGlobTarget.y, 0.06f, 0.07f ), LiquidWhiskGlobTarget.z );
+		LiquidWhiskGlobTarget = new Vector3( LiquidWhiskGlobTarget.x, Mathf.Clamp( LiquidWhiskGlobTarget.y, 0.01f, 0.07f ), LiquidWhiskGlobTarget.z );
 		WhiskLiquidGlob.localPosition = Vector3.Lerp( WhiskLiquidGlob.localPosition, LiquidWhiskGlobTarget, Time.deltaTime * LiquidGlobSpeed );
 		//WhiskLiquidGlob.localPosition += new Vector3( 0, -LiquidWhiskGlobTarget.y + 0.07f, 0 ); // todo, do better
 
@@ -184,6 +184,14 @@ public class StirBowl : MonoBehaviour
 
 			lastquad = quad;
 			lastquadtime = Time.time;
+		}
+	}
+
+	public void QuadExited( Collider whisk, int quad )
+	{
+		if ( lastquad == quad )
+		{
+			LiquidWhiskGlobTarget = new Vector3( LiquidWhiskGlobTarget.x, -0.1f, LiquidWhiskGlobTarget.z );
 		}
 	}
 

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4396274207598876}
-  - component: {fileID: 23827976485586250}
   - component: {fileID: 33912543297803770}
+  - component: {fileID: 23827976485586250}
   - component: {fileID: 114011533599149376}
   m_Layer: 4
   m_Name: Liquid
@@ -33,6 +33,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &33912543297803770
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357587552075914}
+  m_Mesh: {fileID: 0}
 --- !u!23 &23827976485586250
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -72,14 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33912543297803770
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357587552075914}
-  m_Mesh: {fileID: 0}
 --- !u!114 &114011533599149376
 MonoBehaviour:
   m_ObjectHideFlags: 0

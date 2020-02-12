@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RespawnInsideVan : MonoBehaviour
 {
+	public static RespawnInsideVan Instance;
+
 	public string Help = "This is only for the van trigger";
 	public float LeaveTime = 5;
 
@@ -19,16 +21,40 @@ public class RespawnInsideVan : MonoBehaviour
 		public Vector3 Rot;
 	}
 
+	public struct Leave
+	{
+		public Leave( float time, bool prio )
+		{
+			Time = time;
+			HighPriority = prio;
+		}
+
+		public float Time;
+		public bool HighPriority;
+	}
+
 	private Dictionary<GameObject, PosRot> Tracked = new Dictionary<GameObject, PosRot>();
-	private Dictionary<GameObject, float> Leaving = new Dictionary<GameObject, float>();
+	private Dictionary<GameObject, Leave> Leaving = new Dictionary<GameObject, Leave>();
+	List<GameObject> Grabbed = new List<GameObject>();
+
+	private void Awake()
+	{
+		Instance = this;
+	}
 
 	private void Update()
 	{
+		Grabbed.Clear();
 		foreach ( var leave in Leaving )
 		{
+			// If grabbed then extend respawn timer
+			if ( leave.Key.GetComponent<Rigidbody>().isKinematic )
+			{
+				Grabbed.Add( leave.Key );
+			}
+
 			// TODO cleanup list better
-			// TODO issues caused by liquid pour prefab spawned under Respawnable bowl, then removed?
-			if ( leave.Value + LeaveTime <= Time.time && leave.Key != null )
+			if ( leave.Value.Time + LeaveTime <= Time.time && leave.Key != null )
 			{
 				Rigidbody body = leave.Key.GetComponent<Rigidbody>();
 				body.transform.position = Tracked[leave.Key].Pos;
@@ -46,25 +72,47 @@ public class RespawnInsideVan : MonoBehaviour
 				source.transform.position = body.transform.position;
 			}
 		}
+		foreach ( var grab in Grabbed )
+		{
+			Leave leave = Leaving[grab];
+			{
+				leave.Time = Time.time;
+			}
+			Leaving[grab] = leave;
+		}
 	}
 
 	private void OnTriggerEnter( Collider other )
 	{
-		if ( !Tracked.ContainsKey( other.attachedRigidbody.gameObject ) && ( other.attachedRigidbody.GetComponentInChildren<ShouldRespawnInsideVan>() || other.attachedRigidbody.GetComponentInParent<ShouldRespawnInsideVan>() ) )
-		{
-			Tracked.Add( other.attachedRigidbody.gameObject, new PosRot( other.attachedRigidbody.transform.position, other.attachedRigidbody.transform.eulerAngles ) );
-		}
-		if ( Leaving.ContainsKey( other.attachedRigidbody.gameObject ) )
-		{
-			Leaving.Remove( other.attachedRigidbody.gameObject );
-		}
+		ZoneChange( other, true, true );
 	}
 
 	private void OnTriggerExit( Collider other )
 	{
-		if ( Tracked.ContainsKey( other.attachedRigidbody.gameObject ) && !Leaving.ContainsKey( other.attachedRigidbody.gameObject ) )
+		ZoneChange( other, false, true );
+	}
+
+	// Priority is so anything outside of the van definitely respawns,
+	// and takes precedence over the RespawnZones inside the counter etc
+	public void ZoneChange( Collider other, bool correct, bool priority = false )
+	{
+		if ( correct )
 		{
-			Leaving.Add( other.attachedRigidbody.gameObject, Time.time );
+			if ( !Tracked.ContainsKey( other.attachedRigidbody.gameObject ) && ( other.attachedRigidbody.GetComponentInChildren<ShouldRespawnInsideVan>() || other.attachedRigidbody.GetComponentInParent<ShouldRespawnInsideVan>() ) )
+			{
+				Tracked.Add( other.attachedRigidbody.gameObject, new PosRot( other.attachedRigidbody.transform.position, other.attachedRigidbody.transform.eulerAngles ) );
+			}
+			if ( Leaving.ContainsKey( other.attachedRigidbody.gameObject ) && ( priority || !Leaving[other.attachedRigidbody.gameObject].HighPriority ) )
+			{
+				Leaving.Remove( other.attachedRigidbody.gameObject );
+			}
+		}
+		else
+		{
+			if ( Tracked.ContainsKey( other.attachedRigidbody.gameObject ) && !Leaving.ContainsKey( other.attachedRigidbody.gameObject ) )
+			{
+				Leaving.Add( other.attachedRigidbody.gameObject, new Leave( Time.time, priority ) );
+			}
 		}
 	}
 }
