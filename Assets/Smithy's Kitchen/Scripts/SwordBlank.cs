@@ -82,7 +82,10 @@ public class SwordBlank : MonoBehaviour
 	public void OnGrabbed()
 	{
 		transform.parent = null;
-		Mould.OnSwordGrabbed();
+		if ( Mould != null )
+		{
+			Mould.OnSwordGrabbed();
+		}
 	}
 
 	private bool CanStraighten( Collider hammer )

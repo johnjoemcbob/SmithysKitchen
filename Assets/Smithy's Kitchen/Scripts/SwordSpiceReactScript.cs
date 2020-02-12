@@ -35,9 +35,21 @@ public class SwordSpiceReactScript : MonoBehaviour
                     if (colEvent.colliderComponent.gameObject.GetComponentInParent<InteractableBladeTag>())
                     {
                         GameObject cubeSide = colEvent.colliderComponent.gameObject;
-                        MeshRenderer cubeRenderer = cubeSide.GetComponent<MeshRenderer>();
+                        MeshRenderer cubeRenderer = cubeSide.transform.parent.GetComponentInChildren<MeshRenderer>( false );
 
-                        cubeRenderer.material.color = Color.Lerp(cubeRenderer.material.color, particleColour, 0.1f);
+						for ( int mat = 0; mat < cubeRenderer.materials.Length; mat++ )
+						{
+							Color col = particleColour;
+							if ( cubeRenderer.materials[mat].name.Contains( "Light" ) )
+							{
+								cubeRenderer.materials[mat].color = Color.Lerp( cubeRenderer.materials[mat].color, col, 0.1f );
+							}
+							else
+							{
+								col *= Color.grey;
+								cubeRenderer.materials[mat].color = Color.Lerp( cubeRenderer.materials[mat].color, col, 0.1f );
+							}
+						}
                     }
                 }
             }

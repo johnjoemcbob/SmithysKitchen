@@ -245,16 +245,16 @@ public class StirBowl : MonoBehaviour
 				parent.GetComponent<MeshRenderer>().enabled = true;
 				parent.localScale = Vector3.zero;
 
-				// Remove old grabbable objects
-				Transform oldroot = other.attachedRigidbody.transform;
-				Destroy( oldroot.gameObject );
-
 				// Play rising pitch sound
 				IngredientsParent.GetComponent<AudioSource>().pitch = Mathf.Lerp( 2, 3, parent.GetSiblingIndex() / IngredientsParent.childCount );
 				IngredientsParent.GetComponent<AudioSource>().Play();
 
 				PossibleIngredients.Add( parent );
 			}
+
+			// Remove old grabbable objects
+			Transform oldroot = other.attachedRigidbody.transform;
+			Destroy( oldroot.gameObject );
 		}
 	}
 

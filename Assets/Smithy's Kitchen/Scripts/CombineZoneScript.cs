@@ -5,29 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class CombineZoneScript : MonoBehaviour
 {
-    public CombineZoneHiltScript hiltZone;
-    public CombineZoneBladeScript bladeZone;
+    public CombineZoneHiltScript HiltZone;
 	public GameObject Canvas;
 
-    public ParticleSystem particleSystem;
+    public ParticleSystem ParticleSystem;
 
-    bool complete = false;
-
-    void Start()
-    {
-        
-    }
+    private bool complete = false;
 
     void Update()
     {
-        if (hiltZone.IsComplete() && bladeZone.IsComplete())
+        if ( HiltZone.IsComplete() )// && bladeZone.IsComplete())
         {
-            if (complete == false)
+            if ( !complete )
             {
-                particleSystem.Play();
-				Canvas.SetActive( true );
+				ParticleSystem.Play();
+				ParticleSystem.GetComponent<AudioSource>().Play();
+
+				// TODO replace this somehow
+				// Maybe after the completed sword is given to the customer
+				//Canvas.SetActive( true );
+
 				FindObjectOfType<Customer>().Impress( 8 );
-				GetComponent<AudioSource>().Play();
+
 				StartCoroutine( Reset() );
 				complete = true;
             }
