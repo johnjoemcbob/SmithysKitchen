@@ -9,7 +9,7 @@ public class SoupPotScript : MonoBehaviour
 
     public float maxSoupHeight = 0.275f;
 
-    //MeshRenderer soupRenderer;
+    MeshRenderer soupRenderer;
 
     // Start is called before the first frame update
     void Start()
@@ -17,8 +17,7 @@ public class SoupPotScript : MonoBehaviour
         childObj = soupObj.transform.Find("SoupObj").gameObject;
         childObj.SetActive(false);
 
-        //soupRenderer = soupObj.transform.Find("SoupObj").GetComponent<MeshRenderer>();
-        //soupRenderer.material.color = new Color(soupRenderer.material.color.r, soupRenderer.material.color.g, soupRenderer.material.color.b, 0.0f);
+        soupRenderer = childObj.GetComponent<MeshRenderer>();
     }
 
     // Update is called once per frame
@@ -41,16 +40,13 @@ public class SoupPotScript : MonoBehaviour
             newHeight = maxSoupHeight;
 
         childObj.transform.localPosition = new Vector3(0.0f, newHeight, 0.0f);
+    }
 
-        /*float alpha = soupRenderer.material.color.a;
-        alpha += amount;
+    public void LerpBaseMaterial(Material newMaterial, float lerpRate = 0.05f)
+    {
+        if (!soupRenderer)
+            return;
 
-        if (alpha > 1.0f)
-            alpha = 1.0f;
-
-        if (alpha < 0.0f)
-            alpha = 0.0f;
-
-        soupRenderer.material.color = new Color(soupRenderer.material.color.r, soupRenderer.material.color.g, soupRenderer.material.color.b, alpha);*/
+        soupRenderer.material.Lerp(soupRenderer.material, newMaterial, lerpRate);
     }
 }

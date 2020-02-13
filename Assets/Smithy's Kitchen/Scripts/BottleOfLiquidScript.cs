@@ -55,6 +55,7 @@ public class BottleOfLiquidScript : MonoBehaviour
             if (soupScript != null)
             {
                 soupScript.AddBase();
+                soupScript.LerpBaseMaterial(liquidLineRenderer.material);
             }
         }
     }
