@@ -61,7 +61,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: -5644596079703476419, guid: e8d3c0a5f8876c44baff29d2c9de0ad0, type: 3}
   - {fileID: -8946930300590681946, guid: e8d3c0a5f8876c44baff29d2c9de0ad0, type: 3}
-  - {fileID: 7211448773848044386, guid: e8d3c0a5f8876c44baff29d2c9de0ad0, type: 3}
+  - {fileID: 2100000, guid: 3a145fc81d4864044bf8406da55b8ae7, type: 2}
   - {fileID: -532782045497273310, guid: e8d3c0a5f8876c44baff29d2c9de0ad0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -351,7 +351,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -532782045497273310, guid: 20d2ada4996d270448163ce1bbb24855, type: 3}
+  - {fileID: 2100000, guid: 3a145fc81d4864044bf8406da55b8ae7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 5868903621889432586}
   - component: {fileID: 3417676518036707645}
   m_Layer: 0
-  m_Name: FizzCan 1
+  m_Name: FizzCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

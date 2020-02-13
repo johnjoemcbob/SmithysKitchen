@@ -50,7 +50,12 @@ public class BottleOfLiquidScript : MonoBehaviour
             liquidLineRenderer.SetPosition(0, liquidStreamObj.transform.position);
             liquidLineRenderer.SetPosition(1, hit.point);
 
-            Debug.Log(hit.collider.gameObject.name);
+            //Make sure we're only hitting soup
+            SoupPotScript soupScript = hit.collider.gameObject.GetComponentInParent<SoupPotScript>();
+            if (soupScript != null)
+            {
+                soupScript.AddBase();
+            }
         }
     }
 
