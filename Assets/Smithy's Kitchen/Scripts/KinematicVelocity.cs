@@ -1,42 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zinnia.Tracking.Velocity;
 
-// For kinematic rigidbodies velocity will not be set, so calculate here by positional change
-public class KinematicVelocity : MonoBehaviour
+// Had my own class so just try to wrap around it without needing to replace everything.......
+public class KinematicVelocity : AverageVelocityEstimator
 {
 	[HideInInspector]
-	public Vector3 Velocity;
-	[HideInInspector]
-	public Vector3 AngularVelocity;
-
-	private Vector3 oldpos;
-	private Vector3 oldeuler;
-
-	void Start()
+	public Vector3 Velocity
 	{
-		oldpos = transform.position;
-		oldeuler = transform.eulerAngles;
+		get
+		{
+			return DoGetVelocity();
+		}
+	}
+	[HideInInspector]
+	public Vector3 AngularVelocity
+	{
+		get
+		{
+			return DoGetAngularVelocity();
+		}
 	}
 
-	void Update()
+	// Quick fix ya
+	private void Start()
 	{
-		// Pos
-		Vector3 newpos = transform.position;
-		var media =  (newpos - oldpos);
-
-		Velocity = media / Time.deltaTime;
-
-		oldpos = newpos;
-		newpos = transform.position;
-
-		// Ang
-		Vector3 neweuler = transform.eulerAngles;
-		media =  (neweuler - oldeuler);
-
-		AngularVelocity = media / Time.deltaTime;
-
-		oldeuler = neweuler;
-		neweuler = transform.eulerAngles;
+		Source = gameObject;
+		RelativeTo = transform.parent.gameObject;
 	}
 }
