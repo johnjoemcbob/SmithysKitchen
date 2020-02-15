@@ -15,6 +15,7 @@ TagManager:
   - Utensil
   - Oven
   - Peel
+  - Pestle
   layers:
   - Default
   - TransparentFX
