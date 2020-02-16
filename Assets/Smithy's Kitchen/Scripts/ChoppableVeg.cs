@@ -186,9 +186,12 @@ public class ChoppableVeg : MonoBehaviour
 		impress++;
 		if ( impress >= impressgoal )
 		{
-			FindObjectOfType<Customer>().Impress();
-			impress = 0;
-			impressgoal = Random.Range( 5, 15 );
+            if (FindObjectOfType<Customer>())
+            {
+                FindObjectOfType<Customer>().Impress();
+                impress = 0;
+                impressgoal = Random.Range(5, 15);
+            }
 		}
 
 		nextchop++;
