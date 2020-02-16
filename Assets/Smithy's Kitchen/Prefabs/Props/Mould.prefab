@@ -582,7 +582,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505455eab25a99b4e99a55e7f91d0472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Velocity: {x: 0, y: 0, z: 0}
+  source: {fileID: 0}
+  relativeTo: {fileID: 0}
+  isEstimating: 1
+  velocityAverageFrames: 5
+  angularVelocityAverageFrames: 10
 --- !u!114 &71968652765368560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,13 +600,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WhiskTime: 0.4
-  RequiredWhisks: 50
+  WhiskRequiredSpeed: 0.5
+  LerpSpeed: 5
+  LerpAddSpeed: 5
+  LiquidGlobSpeed: 5
+  LiquidLevelSpeed: 5
+  LiquidCastMult: 0.75
+  LiquidLevelPerIngredient: 0.1
+  LiquidLevels: {x: 0.05, y: 0.17}
+  LiquidScales: {x: 1.36, y: 1.25}
   QuadrantArrows:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  LiquidLevel: {fileID: 0}
+  IngredientsParent: {fileID: 0}
+  LiquidParent: {fileID: 0}
+  WhiskLiquidGlob: {fileID: 0}
+  LiquidPourPrefab: {fileID: 0}
+  Mould: {fileID: 0}
 --- !u!82 &6623836781875123070
 AudioSource:
   m_ObjectHideFlags: 0
@@ -728,8 +744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f3e8f77406077479638f0cc9afb38c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollideDrag: 10
-  LerpSpeed: 5
 --- !u!1 &5305737397386203851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1807,6 +1821,11 @@ PrefabInstance:
         type: 3}
       propertyPath: grabOffset
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3607323991379943426, guid: 702caa48c730e92469a1c5144fd8ed46,
+        type: 3}
+      propertyPath: followTracking
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5701689818747509894, guid: 702caa48c730e92469a1c5144fd8ed46,
         type: 3}

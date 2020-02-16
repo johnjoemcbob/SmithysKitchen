@@ -77,9 +77,9 @@ public class Mould : MonoBehaviour
 
 		SetLiquidLevel( 0 );
 
-		GameObject sword = Instantiate( SwordBlankPrefab, SpawnPoint );
-		sword.transform.localPosition = Vector3.zero;
-		sword.transform.localEulerAngles = Vector3.zero;
+		GameObject sword = Instantiate( SwordBlankPrefab );
+		sword.transform.position = SpawnPoint.position;
+		sword.transform.eulerAngles = SpawnPoint.eulerAngles;
 		LastSwordBaked = sword.GetComponentInChildren<SwordBlank>();
 		LastSwordBaked.Mould = this;
 

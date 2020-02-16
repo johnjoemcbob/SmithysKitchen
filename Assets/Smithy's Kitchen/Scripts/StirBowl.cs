@@ -62,6 +62,9 @@ public class StirBowl : MonoBehaviour
 		WhiskLiquidGlob.localPosition = Vector3.Lerp( WhiskLiquidGlob.localPosition, LiquidWhiskGlobTarget, Time.deltaTime * LiquidGlobSpeed );
 		//WhiskLiquidGlob.localPosition += new Vector3( 0, -LiquidWhiskGlobTarget.y + 0.07f, 0 ); // todo, do better
 
+		// Lerp ingredient rotation
+		IngredientsParent.localRotation = Quaternion.Lerp( IngredientsParent.localRotation, Quaternion.Euler( 0, 90 * lastquad, 0 ), Time.deltaTime );
+
 		// Lerp liquid level
 		LerpLiquid();
 

@@ -28,7 +28,7 @@ public class EggCrackScript : MonoBehaviour
 
     void CrackEgg()
     {
-        Instantiate(eggContents, transform.position, Quaternion.identity);
+        Instantiate(eggContents, transform.position + transform.up * 0.1f, Quaternion.identity);
         wholeEgg.SetActive(false);
         halfEgg.SetActive(true);
 		GetComponent<AudioSource>().Play();

@@ -585,7 +585,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505455eab25a99b4e99a55e7f91d0472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Velocity: {x: 0, y: 0, z: 0}
+  source: {fileID: 0}
+  relativeTo: {fileID: 0}
+  isEstimating: 1
+  velocityAverageFrames: 5
+  angularVelocityAverageFrames: 10
 --- !u!114 &3268175499408996180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,8 +615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f3e8f77406077479638f0cc9afb38c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollideDrag: 10
-  LerpSpeed: 5
 --- !u!1 &8612414830216030880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,6 +1559,11 @@ PrefabInstance:
         type: 3}
       propertyPath: willInheritIsKinematicWhenInactiveFromConsumerRigidbody
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3607323991379943426, guid: 702caa48c730e92469a1c5144fd8ed46,
+        type: 3}
+      propertyPath: followTracking
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3626259747347298569, guid: 702caa48c730e92469a1c5144fd8ed46,
         type: 3}

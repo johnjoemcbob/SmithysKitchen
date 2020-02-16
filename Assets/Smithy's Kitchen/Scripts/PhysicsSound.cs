@@ -5,9 +5,10 @@ using UnityEngine;
 public class PhysicsSound : MonoBehaviour
 {
 	public static Vector2 VelocityRange = new Vector2( -1, 5 );
-	public static float MaxVolume = 0.1f;
+	public static float MaxVolume = 0.3f;
+	public static float CooldownTime = 0.1f;
 
-    public enum Type
+	public enum Type
 	{
 		Organic,
 		Wood,
@@ -17,6 +18,7 @@ public class PhysicsSound : MonoBehaviour
 	public Type SelfType;
 
 	private KinematicVelocity Kinematic;
+	private Dictionary<string, float> CollisionCooldown = new Dictionary<string, float>();
 
 	private void Start()
 	{
@@ -44,7 +46,17 @@ public class PhysicsSound : MonoBehaviour
 
 	private void HandleCollider( Collider other )
 	{
+		//Debug.Log( gameObject + " " + other.gameObject );
 		if ( Kinematic == null ) return;
+
+		// Work out custom collision ID for cooldown
+		// Always in the same ID order in case the other physics object calls this too.
+		int id_other	= other.GetInstanceID();
+		int id_self     = gameObject.GetInstanceID();
+		string cooldownid = ( id_other < id_self ) ? ( id_other.ToString() + "|" + id_self.ToString() ) : ( id_self.ToString() + "|" + id_other.ToString() );
+
+		// If cooling then return
+		if ( CollisionCooldown.ContainsKey( cooldownid ) && CollisionCooldown[cooldownid] > Time.time ) return;
 
 		PhysicsSound othersound = other.GetComponentInParent<PhysicsSound>();
 		float velocity = Mathf.Max( Kinematic.Velocity.magnitude, Kinematic.AngularVelocity.magnitude );
@@ -68,6 +80,13 @@ public class PhysicsSound : MonoBehaviour
 				//Debug.Log( velocity + " " + volume );
 				AudioSource.PlayClipAtPoint( clip, transform.position, MaxVolume * volume );
 			}
+
+			// Apply cooldown
+			if ( !CollisionCooldown.ContainsKey( cooldownid ) )
+			{
+				CollisionCooldown.Add( cooldownid, 0 );
+			}
+			CollisionCooldown[cooldownid] = Time.time + CooldownTime;
 		}
 	}
 }
