@@ -7,6 +7,8 @@ public class SoupStirScript : MonoBehaviour
     public GameObject soupObj;
     SoupPotScript soupPotScript;
 
+    int currentQuad = -1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +21,27 @@ public class SoupStirScript : MonoBehaviour
         
     }
 
-    private void OnTriggerStay(Collider other)
+    public void QuadEntered(int quad)
     {
-        if (other.tag == "WoodenSpoon")
+        if (currentQuad == -1)
         {
-            Debug.Log("WOODEN SPOON IS HERE");
+            //Begin
         }
+        else if (currentQuad < quad)
+        {
+            //Clockwise?
+        }
+        else if (currentQuad > quad)
+        {
+            //Anticlockwise?
+        }
+
+        currentQuad = quad;
+        Debug.Log("CURRENT QUAD: " + quad);
+    }
+
+    public void QuadExited(int quad)
+    {
+
     }
 }
