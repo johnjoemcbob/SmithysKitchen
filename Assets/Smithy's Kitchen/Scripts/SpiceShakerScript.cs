@@ -9,9 +9,13 @@ public class SpiceShakerScript : MonoBehaviour
     public ParticleSystem particleSprinkles;
     public Color particleColour = Color.white;
 
+    VRTK.Prefabs.Interactions.Interactables.InteractableFacade facade;
+
     // Start is called before the first frame update
     void Start()
     {
+        facade = GetComponent<VRTK.Prefabs.Interactions.Interactables.InteractableFacade>();
+
         particleSprinkles.Stop();
 
         ParticleSystem.MainModule ma = particleSprinkles.main;
@@ -31,12 +35,16 @@ public class SpiceShakerScript : MonoBehaviour
     {
         if (transform.up.y <= 0.0f)
         {
-            StartShaking();
+            if (facade.IsGrabbed)
+                StartShaking();
         }
         else
         {
             StopShaking();
         }
+
+        if (!facade.IsGrabbed)
+            StopShaking();
     }
 
     //----------------------------------------------------------------
