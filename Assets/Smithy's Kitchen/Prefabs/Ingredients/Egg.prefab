@@ -165,7 +165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5253925016439914577
 Transform:
   m_ObjectHideFlags: 0
@@ -560,7 +560,7 @@ MonoBehaviour:
   halfEgg: {fileID: 4713920632899730143}
   eggContents: {fileID: 6235755266280927693, guid: 8337aaea3e2944e468050c74ff308475,
     type: 3}
-  numberOfHitsToCrack: 6
+  numberOfHitsToCrack: 5
 --- !u!82 &1348845223535316124
 AudioSource:
   m_ObjectHideFlags: 0

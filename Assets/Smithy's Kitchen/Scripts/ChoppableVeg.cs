@@ -240,7 +240,7 @@ public class ChoppableVeg : MonoBehaviour
 			GameObject grab = Disconnect( Peels[peelID] );
 			var sound = grab.AddComponent<PhysicsSound>();
 			sound.SelfType = PhysicsSound.Type.Organic;
-			grab.GetComponentInChildren<Collider>().isTrigger = false;
+			//grab.GetComponentInChildren<Collider>().isTrigger = false;
 			grab.GetComponentInChildren<Rigidbody>().AddExplosionForce( 10000, transform.position, 10, 5 );
 			Destroy( grab, 5 );
 

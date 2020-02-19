@@ -28,10 +28,10 @@ public class EggCrackScript : MonoBehaviour
 
     void CrackEgg()
     {
-        Instantiate(eggContents, transform.position + transform.up * 0.1f, Quaternion.identity);
+        Instantiate(eggContents, transform.position + transform.up * 0.2f, Quaternion.identity);
         wholeEgg.SetActive(false);
         halfEgg.SetActive(true);
-		GetComponent<AudioSource>().Play();
+		//GetComponent<AudioSource>().Play();
 		GameObject particle = SmithysKitchen.EmitParticleImpact( transform.position );
 		particle.transform.localScale = Vector3.one * 0.25f;
 
@@ -44,8 +44,9 @@ public class EggCrackScript : MonoBehaviour
             return;
 
         numberOfHitsToCrack -= 1;
+		GetComponent<AudioSource>().Play();
 
-        if (numberOfHitsToCrack <= 0)
+		if (numberOfHitsToCrack <= 0)
         {
             CrackEgg();
         }

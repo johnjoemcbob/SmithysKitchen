@@ -1,10 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Main class with helpers
 public class SmithysKitchen : MonoBehaviour
 {
+	bool loading = false;
+
+	public void ButtonResetScene()
+	{
+		if ( loading ) return;
+
+		AudioClip clip = Resources.Load( "Sounds/phone" ) as AudioClip;
+		AudioSource.PlayClipAtPoint( clip, transform.position, 1 );
+
+		SceneManager.LoadSceneAsync( 0 );
+		loading = true;
+	}
+
+	public void ButtonTestScene()
+	{
+		if ( loading ) return;
+
+		AudioClip clip = Resources.Load( "Sounds/phone" ) as AudioClip;
+		AudioSource.PlayClipAtPoint( clip, transform.position, 1 );
+
+		SceneManager.LoadSceneAsync( 1 );
+		loading = true;
+	}
+
     public static GameObject CreateGrabbable( GameObject from )
 	{
 		GameObject grabbable = Instantiate( Resources.Load( "Prefabs/BaseGrabbable" ), from.transform.parent ) as GameObject;

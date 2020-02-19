@@ -33,7 +33,10 @@ public class Slime : MonoBehaviour
 
 	private void OnTriggerEnter( Collider other )
 	{
-		BlowUp();
+		if ( other.attachedRigidbody && other.attachedRigidbody.velocity.magnitude > 0.1f )
+		{
+			BlowUp();
+		}
 	}
 
 	void BlowUp()
