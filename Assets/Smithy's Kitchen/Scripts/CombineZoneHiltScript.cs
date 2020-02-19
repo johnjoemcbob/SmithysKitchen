@@ -48,7 +48,10 @@ public class CombineZoneHiltScript : MonoBehaviour
         highlightMesh.SetActive(false);
         hiltMesh.SetActive(true);
 
-        isComplete = true;
+		// Matthew play party
+		FindObjectOfType<CombineZoneScript>().Complete();
+
+		isComplete = true;
     }
 
     public bool IsComplete()

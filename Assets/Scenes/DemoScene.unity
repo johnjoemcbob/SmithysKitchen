@@ -8078,12 +8078,12 @@ PrefabInstance:
     - target: {fileID: 114287408107621598, guid: bdc24a54bab4ef248980171acee49e8e,
         type: 3}
       propertyPath: Activated.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: set_HeightStep
+      value: ButtonResetScene
       objectReference: {fileID: 0}
     - target: {fileID: 114287408107621598, guid: bdc24a54bab4ef248980171acee49e8e,
         type: 3}
       propertyPath: Activated.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114287408107621598, guid: bdc24a54bab4ef248980171acee49e8e,
         type: 3}
@@ -8150,10 +8150,15 @@ PrefabInstance:
       propertyPath: Deactivated.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114287408107621598, guid: bdc24a54bab4ef248980171acee49e8e,
+        type: 3}
+      propertyPath: Activated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 734431256}
     - target: {fileID: 114452848883100712, guid: bdc24a54bab4ef248980171acee49e8e,
         type: 3}
       propertyPath: ValueChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114452848883100712, guid: bdc24a54bab4ef248980171acee49e8e,
         type: 3}
@@ -61313,12 +61318,12 @@ PrefabInstance:
     - target: {fileID: 114287408107621598, guid: bdc24a54bab4ef248980171acee49e8e,
         type: 3}
       propertyPath: Activated.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: set_HeightStep
+      value: ButtonTestScene
       objectReference: {fileID: 0}
     - target: {fileID: 114287408107621598, guid: bdc24a54bab4ef248980171acee49e8e,
         type: 3}
       propertyPath: Activated.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114287408107621598, guid: bdc24a54bab4ef248980171acee49e8e,
         type: 3}
@@ -61385,10 +61390,15 @@ PrefabInstance:
       propertyPath: Deactivated.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114287408107621598, guid: bdc24a54bab4ef248980171acee49e8e,
+        type: 3}
+      propertyPath: Activated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 734431256}
     - target: {fileID: 114452848883100712, guid: bdc24a54bab4ef248980171acee49e8e,
         type: 3}
       propertyPath: ValueChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114452848883100712, guid: bdc24a54bab4ef248980171acee49e8e,
         type: 3}
