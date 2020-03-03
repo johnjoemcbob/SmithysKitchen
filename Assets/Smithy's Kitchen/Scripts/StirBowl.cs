@@ -43,6 +43,8 @@ public class StirBowl : MonoBehaviour
 		{
 			mesh.enabled = false;
 		}
+
+		LiquidLevel = 1;
 	}
 
 	private void Update()
@@ -117,12 +119,18 @@ public class StirBowl : MonoBehaviour
 				}
 				else
 				{
-					Debug.Log( "pour!" );
 					// Pour out
 					//GameObject pour = Instantiate( LiquidPourPrefab );
 					//pour.transform.position = LiquidParent.GetChild( sphere + off ).position;
 					//pour.transform.eulerAngles = new Vector3( 0, transform.eulerAngles.y, 0 );
 					//Destroy( pour, 5 );
+
+					// TEMP try to find the ONLY mould, if in range
+					var mould = FindObjectOfType<Mould>();
+					if ( Vector3.Distance( mould.transform.position, transform.position ) <= 1 )
+					{
+						Mould = mould;
+					}
 
 					// TODO Detect if pouring into mould
 					if ( Mould != null )

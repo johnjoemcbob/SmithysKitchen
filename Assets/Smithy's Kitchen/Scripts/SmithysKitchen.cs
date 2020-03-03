@@ -12,7 +12,7 @@ public class SmithysKitchen : MonoBehaviour
 	public static float NextAllowedLoad = 0;
 
 	public const float BetweenLoads = 20;
-	public const float BetweenSheetRefreshes = 1;
+	public const float BetweenSheetRefreshes = 5;
 
 	bool loading = false;
 

@@ -24,7 +24,7 @@ public class Mould : MonoBehaviour
 		Level = 0;
 		if ( Application.isEditor )
 		{
-			AddLiquidLevel( 1 );
+		//	AddLiquidLevel( 1 );
 			CookTime = 1;
 		}
 	}
